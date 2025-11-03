@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication - How It Works</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .key-concept {
+            background: #e7f3ff;
+            border-left: 5px solid #0066cc;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .key-concept h2 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .comparison-card {
+            border: 3px solid #000;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .comparison-card h3 {
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .comparison-card .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .analogy {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px dashed #ffc107;
+        }
+        
+        .analogy h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .visual-flow {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .flow-number {
+            background: #000;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #000;
+            margin: 10px 0;
+        }
+        
+        .user-box {
+            border: 3px solid #6c757d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+        }
+        
+        .user-id {
+            background: #000;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        
+        .user-role {
+            background: #6c757d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .example-box h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .flow-number {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 How User Authentication Works</h1>
+        <p class="subtitle">Understanding User IDs, Roles, and Data Privacy</p>
+        
+        <div class="key-concept">
+            <h2>The Key Insight</h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">Even though all students have the same role ("Subscriber"), each person has a <strong>unique User ID</strong> that WordPress tracks automatically. This ID is how the system knows whose data is whose.</p>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px 0;">User Role vs. User ID</h2>
+        
+        <div class="comparison-box">
+            <div class="comparison-card">
+                <div class="icon">👥</div>
+                <h3>User Role</h3>
+                <p style="color: #666; margin-bottom: 15px;"><strong>What you can DO</strong></p>
+                <ul style="text-align: left; margin-left: 20px; color: #333;">
+                    <li>Submit forms</li>
+                    <li>Edit your entries</li>
+                    <li>View your data</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #666;"><em>Same for all students</em></p>
+            </div>
+            
+            <div class="comparison-card">
+                <div class="icon">🆔</div>
+                <h3>User ID</h3>
+                <p style="color: #666; margin-bottom: 15px;"><strong>Who you ARE</strong></p>
+                <ul style="text-align: left; margin-left: 20px; color: #333;">
+                    <li>Unique number (e.g., 128)</li>
+                    <li>Tracks your submissions</li>
+                    <li>Filters your data</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #666;"><em>Different for each person</em></p>
+            </div>
+        </div>
+        
+        <div class="analogy">
+            <h3>💡 Real-World Analogy: Driver's Licenses</h3>
+            <div style="background: white; padding: 20px; border-radius: 6px; margin-top: 15px;">
+                <p style="margin-bottom: 15px;"><strong>User Role = "Driver's License Holder"</strong></p>
+                <p style="color: #666; margin-bottom: 20px;">Everyone with a driver's license has the same permissions: can operate a vehicle, must follow traffic laws, can rent cars.</p>
+                
+                <p style="margin-bottom: 15px;"><strong>User ID = Your Actual License Number</strong></p>
+                <p style="color: #666;">Even though millions of people have driver's licenses (same role), each license has a unique number that identifies who you are.</p>
+                
+                <p style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #ffc107; font-weight: 600; color: #856404;">
+                    Same permissions, different identities = Same role, different User IDs
+                </p>
+            </div>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px 0;">How It Works: Step by Step</h2>
+        
+        <div class="visual-flow">
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <div>
+                    <strong style="font-size: 1.1em; display: block; margin-bottom: 5px;">User Logs In</strong>
+                    <p style="color: #666;">Jane enters username and password → WordPress authenticates → Assigns session to User ID 128</p>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <div>
+                    <strong style="font-size: 1.1em; display: block; margin-bottom: 5px;">User Submits Form</strong>
+                    <p style="color: #666;">Jane fills out IDP → Clicks "Submit" → Formidable automatically saves: Entry #1, User ID = 128, [all her data]</p>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <div class="flow-step">
+                <div class="flow-number">3</div>
+                <div>
+                    <strong style="font-size: 1.1em; display: block; margin-bottom: 5px;">User Views Dashboard</strong>
+                    <p style="color: #666;">Jane goes to "My IDP" page → View filters: "Show entries where User ID = 128" → Jane sees only her Entry #1</p>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <div class="flow-step">
+                <div class="flow-number">4</div>
+                <div>
+                    <strong style="font-size: 1.1em; display: block; margin-bottom: 5px;">Data Auto-Populates</strong>
+                    <p style="color: #666;">Jane opens Compact form → Field says "Get Student Name where User ID = 128" → Automatically fills "Jane Smith" from her IDP</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px 0;">Example: Three Users, Same Role</h2>
+        
+        <div class="example-box">
+            <h3>What WordPress Stores</h3>
+            
+            <div class="user-box">
+                <div style="margin-bottom: 10px;">
+                    <span class="user-id">User ID: 128</span>
+                    <span class="user-role">Role: PhD Student</span>
+                </div>
+                <p><strong>Name:</strong> Jane Smith</p>
+                <p><strong>Email:</strong> j.smith@northeastern.edu</p>
+            </div>
+            
+            <div class="user-box">
+                <div style="margin-bottom: 10px;">
+                    <span class="user-id">User ID: 247</span>
+                    <span class="user-role">Role: PhD Student</span>
+                </div>
+                <p><strong>Name:</strong> Bob Jones</p>
+                <p><strong>Email:</strong> b.jones@northeastern.edu</p>
+            </div>
+            
+            <div class="user-box">
+                <div style="margin-bottom: 10px;">
+                    <span class="user-id">User ID: 356</span>
+                    <span class="user-role">Role: PhD Student</span>
+                </div>
+                <p><strong>Name:</strong> Maria Garcia</p>
+                <p><strong>Email:</strong> m.garcia@northeastern.edu</p>
+            </div>
+            
+            <p style="margin-top: 20px; font-weight: 600; text-align: center; color: #2e7d32;">
+                ✓ Same role (PhD Student) but different IDs (128, 247, 356) = Data stays separate
+            </p>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px 0;">Example: Form Submissions</h2>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Entry ID</th>
+                    <th>User ID</th>
+                    <th>Student Name</th>
+                    <th>Research Area</th>
+                    <th>Primary Advisor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="highlight">128</td>
+                    <td>Jane Smith</td>
+                    <td>Media Studies</td>
+                    <td>Dr. Rodriguez</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="highlight">247</td>
+                    <td>Bob Jones</td>
+                    <td>Games + XR</td>
+                    <td>Dr. Chen</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="highlight">356</td>
+                    <td>Maria Garcia</td>
+                    <td>Performance Studies</td>
+                    <td>Dr. Kim</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="highlight">128</td>
+                    <td>Jane Smith</td>
+                    <td>Media Studies (updated)</td>
+                    <td>Dr. Rodriguez</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p style="text-align: center; font-weight: 600; margin-top: 20px;">
+            When Jane (User ID 128) logs in, she sees only Entries #1 and #4 (hers)<br>
+            Bob sees only Entry #2 • Maria sees only Entry #3
+        </p>
+        
+        <h2 style="margin: 40px 0 20px 0;">How Faculty See Advisee Data</h2>
+        
+        <div class="visual-flow">
+            <div class="flow-step" style="background: #e3f2fd; border-color: #2196f3;">
+                <div class="flow-number" style="background: #2196f3;">👨‍🏫</div>
+                <div>
+                    <p><strong>Faculty Profile: Dr. Rodriguez (User ID 301)</strong></p>
+                    <p style="color: #666; margin-top: 5px;">Role: PhD Faculty</p>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <div class="flow-step" style="background: #fff3cd;">
+                <div style="width: 100%;">
+                    <p style="margin-bottom: 15px;"><strong>Students Select Dr. Rodriguez as Advisor in Their IDPs:</strong></p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                        <div style="background: white; padding: 10px; border-radius: 4px; border: 1px solid #dee2e6;">
+                            Jane (ID: 128)<br>
+                            <small>Advisor ID: 301</small>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 4px; border: 1px solid #dee2e6;">
+                            Alex (ID: 189)<br>
+                            <small>Advisor ID: 301</small>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 4px; border: 1px solid #dee2e6;">
+                            Sam (ID: 412)<br>
+                            <small>Advisor ID: 301</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <div class="flow-step" style="background: #d4edda; border-color: #28a745;">
+                <div class="flow-number" style="background: #28a745;">✓</div>
+                <div>
+                    <p><strong>Dr. Rodriguez's Dashboard Shows:</strong></p>
+                    <p style="color: #155724; margin-top: 5px;">All entries where Advisor ID = 301 → Sees Jane, Alex, and Sam's data</p>
+                    <p style="color: #155724; font-weight: 600; margin-top: 10px;">Does NOT see students with other advisors</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px 0;">FAQs</h2>
+        
+        <div style="border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+            <h3 style="margin-bottom: 10px; color: #000;">Q: Do users see their User ID?</h3>
+            <p style="color: #666;"><strong>A:</strong> No. User IDs work behind the scenes. Users only see their name and data. WordPress and Formidable handle User IDs automatically.</p>
+        </div>
+        
+        <div style="border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+            <h3 style="margin-bottom: 10px; color: #000;">Q: What if all students have the same role - how does it know?</h3>
+            <p style="color: #666;"><strong>A:</strong> Role determines permissions (what you CAN do). User ID determines identity (who you ARE). Different IDs = different people = different data.</p>
+        </div>
+        
+        <div style="border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+            <h3 style="margin-bottom: 10px; color: #000;">Q: Can students see each other's data?</h3>
+            <p style="color: #666;"><strong>A:</strong> No. Views are filtered by User ID. Jane (ID 128) only sees entries where User ID = 128. The system automatically hides everyone else's data.</p>
+        </div>
+        
+        <div style="border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+            <h3 style="margin-bottom: 10px; color: #000;">Q: How does auto-population work?</h3>
+            <p style="color: #666;"><strong>A:</strong> When Jane opens a new form, Formidable looks up: "What's the value of Field X in the IDP where User ID = current user (128)?" and automatically fills it in.</p>
+        </div>
+        
+        <div style="border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+            <h3 style="margin-bottom: 10px; color: #000;">Q: How does Academic Director see everything?</h3>
+            <p style="color: #666;"><strong>A:</strong> Admin role bypasses User ID filters. Views configured for Administrator role show ALL entries regardless of User ID.</p>
+        </div>
+        
+        <h2 style="margin: 50px 0 30px 0; text-align: center; font-size: 1.8em;">The Complete Picture</h2>
+        
+        <div style="background: #000; color: white; padding: 30px; border-radius: 8px; text-align: center;">
+            <p style="font-size: 1.3em; margin-bottom: 20px; line-height: 1.8;">
+                <strong>User Role</strong> = What you can do<br>
+                <strong>User ID</strong> = Who you are<br>
+                <strong>Views</strong> = Filter by User ID<br>
+                <strong>Auto-population</strong> = Lookup by User ID<br>
+                <strong>Privacy</strong> = Automatic via User ID filtering
+            </p>
+            <p style="margin-top: 30px; font-size: 1.1em; opacity: 0.9;">
+                ✓ You never manually enter User IDs<br>
+                ✓ WordPress tracks them automatically<br>
+                ✓ Forms and Views use them behind the scenes<br>
+                ✓ Users only see their own data
+            </p>
+        </div>
+        
+        <div style="background: #d4edda; padding: 25px; border-radius: 8px; margin-top: 40px; border: 2px solid #28a745;">
+            <h3 style="color: #155724; margin-bottom: 15px; text-align: center;">Bottom Line</h3>
+            <p style="text-align: center; font-size: 1.1em; color: #155724; line-height: 1.8;">
+                <strong>Same role doesn't mean same data.</strong><br>
+                User IDs keep everyone's information private and secure,<br>
+                even when everyone has identical permissions.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

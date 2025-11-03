@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Review 360° Mockup - CAMD PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-notice {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mockup-notice h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .view-selector {
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+        }
+        
+        .view-selector button {
+            padding: 12px 25px;
+            margin: 5px;
+            border: 2px solid #000;
+            background: white;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .view-selector button.active {
+            background: #000;
+            color: white;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .container.active {
+            display: block;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #7B68EE 0%, #9370DB 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .part-indicator {
+            background: #e9ecef;
+            padding: 15px 30px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .part {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 5px;
+        }
+        
+        .part.active {
+            background: #7B68EE;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .part.inactive {
+            background: #f8f9fa;
+            color: #999;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .intro-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7B68EE;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+        
+        .field-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            line-height: 1.6;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #7B68EE;
+            box-shadow: 0 0 0 3px rgba(123,104,238,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .confidential-section {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .confidential-warning {
+            background: #dc3545;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .radio-group {
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            margin-bottom: 12px;
+        }
+        
+        .radio-option input {
+            margin-right: 8px;
+        }
+        
+        .radio-option label {
+            display: inline;
+            font-weight: normal;
+        }
+        
+        button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #7B68EE;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #6a5acd;
+            transform: translateY(-2px);
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-notice">
+        <h2>⚠️ EARLY DRAFT MOCKUP - NOT FINAL DESIGN</h2>
+        <p><strong>This demonstrates the 360° Annual Review structure.</strong></p>
+        <p>Switch between Student and Faculty views to see both perspectives. Final implementation will be more polished.</p>
+    </div>
+    
+    <div class="view-selector">
+        <button class="active" onclick="showView('student')">Student View (Parts 1 & 3)</button>
+        <button onclick="showView('faculty')">Faculty View (Parts 2 & 4)</button>
+        <button onclick="showView('guide')">Discussion Guide</button>
+    </div>
+    
+    <!-- Student View -->
+    <div id="studentView" class="container active">
+        <div class="header">
+            <h1>📊 Annual Review - Student Components</h1>
+            <p>Year 1 Review • April 2026</p>
+        </div>
+        
+        <div class="part-indicator">
+            <span class="part active">Part 1: Self-Assessment</span>
+            <span class="part inactive">Part 2: Faculty Assessment</span>
+            <span class="part active">Part 3: Feedback on Advising</span>
+            <span class="part inactive">Part 4: Faculty Reflection</span>
+        </div>
+        
+        <div class="form-content">
+            <div class="intro-box">
+                <h3>How the 360° Annual Review Works</h3>
+                <p style="margin-top: 10px; line-height: 1.6;">You complete <strong>Part 1</strong> (self-assessment) and <strong>Part 3</strong> (feedback on advising). Your advisor completes <strong>Part 2</strong> (assessment of you) and <strong>Part 4</strong> (self-reflection). After both submit, you meet to discuss using a generated discussion guide. This is a developmental conversation, not an evaluation.</p>
+            </div>
+            
+            <h2 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #7B68EE;">Part 1: Student Self-Assessment</h2>
+            
+            <div class="form-group">
+                <label>Describe your research progress this year</label>
+                <p class="field-description">What did you accomplish? What challenges did you face? How has your work evolved?</p>
+                <textarea rows="6" placeholder="Your reflection on research progress...">This year I made significant progress on defining my research direction. I initially came in with broad interest in "media and social justice" but have narrowed to focus on social media framing in social movements.
+
+Key accomplishments:
+- Completed coursework in media theory and qualitative methods
+- Passed qualifying exam fields proposal with committee approval
+- Presented at department colloquium on preliminary research
+- Began literature review on framing theory
+
+Challenges:
+- Struggled with scope - wanted to study everything, learning to narrow
+- Had to learn qualitative analysis from scratch
+- Balancing coursework with beginning research was harder than expected</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What skills have you developed this year?</label>
+                <textarea rows="5" placeholder="Academic, research, technical, professional skills...">- Qualitative interviewing and analysis (through COMM 6350)
+- Academic writing for scholarly audiences (improved significantly)
+- Presenting research orally (colloquium helped build confidence)
+- Managing ambiguity in research questions
+- Reading strategically for research (not comprehensively for class)</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What are your areas for growth?</label>
+                <p class="field-description">Where do you want to improve or develop further?</p>
+                <textarea rows="5" placeholder="Growth areas and development goals...">- Writing more efficiently (I revise too much too early)
+- Narrowing research scope without losing important nuance
+- Building professional network beyond my advisor
+- Submitting work for publication (intimidating but need to start)
+- Time management (better balance between coursework and research)</textarea>
+            </div>
+            
+            <h2 style="margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 3px solid #7B68EE;">Part 3: Your Feedback on Advising</h2>
+            
+            <div class="intro-box" style="background: #e3f2fd; border-left-color: #1976d2;">
+                <h3 style="color: #1565c0;">This is developmental, not evaluative</h3>
+                <p style="margin-top: 10px; line-height: 1.6; color: #1565c0;">Your honest feedback helps your advisor improve their mentoring. They will see these responses and will provide their own self-reflection (Part 4). This creates a foundation for growth-oriented conversation.</p>
+            </div>
+            
+            <div class="form-group">
+                <label>How has communication and accessibility been this year?</label>
+                <p class="field-description">Meeting frequency, response times, availability</p>
+                <textarea rows="5" placeholder="Your feedback on communication...">Dr. Rodriguez has been very accessible. We meet weekly as planned in our compact, and she typically responds to emails within 24-48 hours.
+
+What's working well:
+- Standing meeting time (Tuesdays 2pm) means I always know when we'll connect
+- She's open to scheduling additional meetings when I'm stuck
+- Responds thoughtfully to drafts, usually within a week
+
+One area that could improve:
+- Sometimes meetings get rescheduled last-minute due to her teaching schedule. Not a major issue but happens occasionally.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Describe the quality of guidance you've received</label>
+                <p class="field-description">Research direction, feedback on work, professional advice</p>
+                <textarea rows="5" placeholder="Your feedback on quality of guidance...">Dr. Rodriguez has been excellent at helping me narrow my research question. She asks hard questions that push my thinking without being discouraging.
+
+Her feedback on writing is detailed and helps me improve. She also introduced me to scholars whose work connects to mine, which has been invaluable.
+
+One area I'd like more support: career exploration. I'm still unsure about academic vs. non-academic paths and would appreciate more conversation about this.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What's working well in your advising relationship?</label>
+                <textarea rows="5" placeholder="Specific things that are working...">- Weekly meetings provide consistent structure
+- She remembers our previous conversations and builds on them
+- She's honest when she doesn't know something and helps me find other resources
+- She celebrates small wins, which helps motivation
+- She models healthy work-life balance</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What could improve in your advising relationship?</label>
+                <p class="field-description">Be specific and constructive</p>
+                <textarea rows="5" placeholder="Constructive suggestions for improvement...">More explicit career planning conversations - this feels like it gets deprioritized when we're focused on immediate research tasks.
+
+Clearer feedback on "when is this draft good enough?" - sometimes I'm not sure if I should keep revising or if it's ready to move forward.</textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-primary">Submit Student Self-Assessment & Feedback →</button>
+            </div>
+            
+            <div style="background: #e7f3ff; padding: 20px; border-radius: 6px; margin-top: 30px; border: 1px solid #b3d9ff;">
+                <p style="font-size: 0.95em; color: #004085;"><strong>After you submit:</strong></p>
+                <p style="font-size: 0.9em; color: #004085; margin-top: 8px;">• Your advisor will be notified to complete their assessment</p>
+                <p style="font-size: 0.9em; color: #004085;">• Once both parts are complete, a discussion guide will be generated</p>
+                <p style="font-size: 0.9em; color: #004085;">• You'll schedule a meeting to discuss the review together</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Faculty View -->
+    <div id="facultyView" class="container">
+        <div class="header">
+            <h1>📊 Annual Review - Faculty Components</h1>
+            <p>Reviewing: Jane Smith • Year 1 • April 2026</p>
+        </div>
+        
+        <div class="part-indicator">
+            <span class="part inactive">Part 1: Student Self-Assessment</span>
+            <span class="part active">Part 2: Faculty Assessment</span>
+            <span class="part inactive">Part 3: Student Feedback</span>
+            <span class="part active">Part 4: Faculty Self-Reflection</span>
+        </div>
+        
+        <div class="form-content">
+            <div class="intro-box">
+                <h3>Two Sections in This Form</h3>
+                <p style="margin-top: 10px; line-height: 1.6;"><strong>Part 2 (Shared):</strong> Your assessment of the student - they will see this section</p>
+                <p style="margin-top: 5px; line-height: 1.6;"><strong>Part 2 (Confidential):</strong> Probation/dismissal flags - only Academic Director sees this</p>
+                <p style="margin-top: 5px; line-height: 1.6;"><strong>Part 4:</strong> Your self-reflection - student will see this as part of 360° process</p>
+            </div>
+            
+            <h2 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #7B68EE;">Part 2: Faculty Assessment (Student Will See This)</h2>
+            
+            <div class="form-group">
+                <label>Assess student's research progress this year</label>
+                <textarea rows="6" placeholder="Your assessment of research progress...">Jane has made excellent progress in Year 1. She came in with broad interests and has successfully narrowed to a focused, feasible research question on social media framing in social movements.
+
+Strengths:
+- Intellectually curious and reads widely
+- Excellent written communication skills
+- Takes feedback well and implements it
+- Engaged actively in coursework and colloquium
+
+Areas for continued development:
+- Still working on scope management (wants to study everything)
+- Could be more proactive about building professional network
+- Writing process could be more efficient (revises excessively)</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Overall progress toward program milestones</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="progress" id="prog1" checked>
+                        <label for="prog1">Exceeds expectations</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="progress" id="prog2">
+                        <label for="prog2">Meets expectations</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="progress" id="prog3">
+                        <label for="prog3">Needs improvement</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="progress" id="prog4">
+                        <label for="prog4">Serious concerns</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="confidential-section">
+                <div class="confidential-warning">
+                    🔒 CONFIDENTIAL SECTION - ACADEMIC DIRECTOR ONLY
+                </div>
+                <p style="margin-bottom: 20px; font-weight: 600; color: #856404;">This section is visible ONLY to the Academic Director. The student will NOT see these responses. Use this section for probation/dismissal considerations or serious concerns requiring administrative intervention.</p>
+                
+                <div class="form-group">
+                    <label>Should this student be considered for academic probation?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="probation" id="prob1" checked>
+                            <label for="prob1">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="probation" id="prob2">
+                            <label for="prob2">Yes - provide rationale below</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Should this student be considered for dismissal from the program?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="dismissal" id="dism1" checked>
+                            <label for="dism1">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="dismissal" id="dism2">
+                            <label for="dism2">Yes - provide rationale below</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Additional confidential notes for Academic Director</label>
+                    <p class="field-description">Any other information that should not be shared with student but is important for program administration</p>
+                    <textarea rows="4" placeholder="Confidential notes (optional)..."></textarea>
+                </div>
+            </div>
+            
+            <h2 style="margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 3px solid #7B68EE;">Part 4: Faculty Self-Reflection (Student Will See This)</h2>
+            
+            <div class="intro-box" style="background: #e3f2fd; border-left-color: #1976d2;">
+                <h3 style="color: #1565c0;">Model Growth Mindset</h3>
+                <p style="margin-top: 10px; line-height: 1.6; color: #1565c0;">This section demonstrates your openness to improving as a mentor. Your student will see these responses. Honest reflection creates foundation for mutual growth.</p>
+            </div>
+            
+            <div class="form-group">
+                <label>What's working well in this advising relationship?</label>
+                <textarea rows="5" placeholder="Your reflection on what's working...">Our weekly meetings have established good rhythm and consistency. Jane comes prepared with questions and I appreciate her intellectual curiosity.
+
+What I think is working:
+- Regular check-ins keep us aligned
+- Jane is receptive to feedback and implements it
+- We've developed good rapport and trust
+- She's comfortable admitting when she's confused or stuck</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What areas of your mentoring could you improve to better support this student?</label>
+                <p class="field-description">Be honest - this models growth mindset</p>
+                <textarea rows="5" placeholder="Areas where you could improve...">I could be more proactive about career planning conversations. Jane mentioned interest in non-academic careers and I haven't provided as much guidance on that as I could.
+
+Also, I tend to give very detailed feedback on writing which is helpful but might contribute to her over-revision tendency. Could experiment with "good enough" checkpoints.
+
+Should introduce her to more scholars in her area - I have connections I haven't leveraged yet.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What commitments are you making for the year ahead?</label>
+                <p class="field-description">Specific actions you'll take to support student's success</p>
+                <textarea rows="5" placeholder="Your commitments for next year...">For Year 2, I commit to:
+- Add explicit career planning to our agenda at least once per month
+- Introduce Jane to 3-4 scholars doing related work (invitations to coffee/Zoom)
+- Help her develop conference presentation for ICA
+- Be more explicit about "this draft is good enough to move forward"
+- Support her beginning qualifying exam preparation with structured timeline</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What resources or support would help you be a better advisor to this student?</label>
+                <textarea rows="4" placeholder="Optional: Resources that would help you...">Would be helpful to connect with other faculty who advise students interested in non-academic careers - could learn strategies for supporting that path better.</textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-primary">Submit Faculty Assessment & Reflection →</button>
+            </div>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 6px; margin-top: 30px; border: 1px solid #ffc107;">
+                <p style="font-size: 0.95em; color: #856404;"><strong>⚠️ Important:</strong></p>
+                <p style="font-size: 0.9em; color: #856404; margin-top: 8px;">• If you checked probation or dismissal flags, Academic Director receives URGENT notification</p>
+                <p style="font-size: 0.9em; color: #856404;">• Student does NOT see confidential section</p>
+                <p style="font-size: 0.9em; color: #856404;">• After submission, discussion guide is generated for your meeting</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Discussion Guide View -->
+    <div id="guideView" class="container">
+        <div class="header" style="background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);">
+            <h1>📋 Annual Review Discussion Guide</h1>
+            <p>Jane Smith • Dr. Rodriguez • Year 1 • April 2026</p>
+        </div>
+        
+        <div class="form-content">
+            <div class="intro-box" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <h3 style="color: #2e7d32;">Generated After Both Submissions</h3>
+                <p style="margin-top: 10px; line-height: 1.6; color: #2e7d32;">This guide is generated automatically after both student and faculty complete their parts. Use it to structure your discussion meeting. Focus on growth and mutual support, not evaluation.</p>
+            </div>
+            
+            <h2 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #4caf50;">Areas of Alignment</h2>
+            
+            <div style="background: #d4edda; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <p style="margin-bottom: 10px;"><strong>✓ Research Progress</strong></p>
+                <p style="font-size: 0.95em;">Both Jane and Dr. Rodriguez agree that research direction has become more focused and specific this year. Both note successful narrowing from broad interest to focused question.</p>
+            </div>
+            
+            <div style="background: #d4edda; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <p style="margin-bottom: 10px;"><strong>✓ Communication Quality</strong></p>
+                <p style="font-size: 0.95em;">Both parties satisfied with weekly meeting schedule and response times. Strong rapport and trust established.</p>
+            </div>
+            
+            <h2 style="margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 3px solid #ff9800;">Areas to Discuss</h2>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+                <p style="margin-bottom: 10px;"><strong>💬 Career Planning Support</strong></p>
+                <p style="font-size: 0.95em; margin-bottom: 10px;"><strong>Jane's request:</strong> "More explicit career planning conversations"</p>
+                <p style="font-size: 0.95em; margin-bottom: 10px;"><strong>Dr. Rodriguez's recognition:</strong> "I could be more proactive about career planning conversations"</p>
+                <p style="font-size: 0.95em; font-weight: 600; margin-top: 15px;">→ Discussion point: How to integrate career planning into regular advising</p>
+            </div>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+                <p style="margin-bottom: 10px;"><strong>💬 Writing Feedback Approach</strong></p>
+                <p style="font-size: 0.95em; margin-bottom: 10px;"><strong>Jane's note:</strong> "Sometimes not sure when draft is good enough"</p>
+                <p style="font-size: 0.95em; margin-bottom: 10px;"><strong>Dr. Rodriguez's recognition:</strong> "Detailed feedback might contribute to over-revision"</p>
+                <p style="font-size: 0.95em; font-weight: 600; margin-top: 15px;">→ Discussion point: Establish explicit "good enough" checkpoints</p>
+            </div>
+            
+            <h2 style="margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 3px solid #2196f3;">Action Items</h2>
+            
+            <div style="background: #e3f2fd; padding: 20px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #2196f3;">
+                <p style="margin-bottom: 10px;"><strong>For Jane (Student):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 8px;">Submit conference paper proposal (ICA deadline September)</li>
+                    <li style="margin-bottom: 8px;">Begin qualifying exam preparation (start reading lists)</li>
+                    <li style="margin-bottom: 8px;">Explore career paths through informational interviews</li>
+                    <li style="margin-bottom: 8px;">Work on narrowing scope without losing important nuance</li>
+                </ul>
+            </div>
+            
+            <div style="background: #e3f2fd; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                <p style="margin-bottom: 10px;"><strong>For Dr. Rodriguez (Advisor):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 8px;">Add career planning to monthly agenda</li>
+                    <li style="margin-bottom: 8px;">Introduce Jane to 3-4 scholars in her area</li>
+                    <li style="margin-bottom: 8px;">Provide "good enough" checkpoints on drafts explicitly</li>
+                    <li style="margin-bottom: 8px;">Support ICA presentation development</li>
+                </ul>
+            </div>
+            
+            <h2 style="margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 3px solid #9c27b0;">Compact Updates Needed</h2>
+            
+            <div style="background: #f3e5f5; padding: 20px; border-radius: 6px; border-left: 4px solid #9c27b0;">
+                <p style="margin-bottom: 15px;"><strong>Recommended Changes:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Add "Career Planning" as standing monthly agenda item</li>
+                    <li style="margin-bottom: 8px;">Specify "good enough" criteria for different draft types</li>
+                    <li style="margin-bottom: 8px;">Update Year 2 goals based on qualifying exam timeline</li>
+                </ul>
+                <button class="action-button" style="margin-top: 20px; background: #9c27b0;">Update Compact →</button>
+            </div>
+            
+            <div class="section-divider" style="margin: 50px 0;"></div>
+            
+            <h2 style="margin-bottom: 20px;">Next Steps</h2>
+            
+            <div style="background: #e8f5e9; padding: 25px; border-radius: 8px; border: 2px solid #4caf50;">
+                <p style="font-weight: 600; font-size: 1.1em; margin-bottom: 15px; color: #2e7d32;">✓ Both assessments complete</p>
+                <ol style="margin-left: 20px; color: #2e7d32;">
+                    <li style="margin-bottom: 10px;">Schedule discussion meeting (use this guide)</li>
+                    <li style="margin-bottom: 10px;">Review areas of alignment and areas to discuss</li>
+                    <li style="margin-bottom: 10px;">Commit to action items together</li>
+                    <li style="margin-bottom: 10px;">Update compact if needed</li>
+                    <li style="margin-bottom: 10px;">Both sign off on discussion outcomes</li>
+                </ol>
+                <button class="action-button" style="margin-top: 20px; background: #4caf50;">Download Complete Review & Guide (PDF)</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showView(type) {
+            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.view-selector button').forEach(b => b.classList.remove('active'));
+            
+            if (type === 'student') {
+                document.getElementById('studentView').classList.add('active');
+                document.querySelectorAll('.view-selector button')[0].classList.add('active');
+            } else if (type === 'faculty') {
+                document.getElementById('facultyView').classList.add('active');
+                document.querySelectorAll('.view-selector button')[1].classList.add('active');
+            } else {
+                document.getElementById('guideView').classList.add('active');
+                document.querySelectorAll('.view-selector button')[2].classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

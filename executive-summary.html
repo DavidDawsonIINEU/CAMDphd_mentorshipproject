@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMD PhD Mentoring & Development System - Executive Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background: #000;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .core-content {
+            padding: 40px;
+            border-bottom: 3px solid #000;
+        }
+        
+        .read-time {
+            background: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        h2 {
+            color: #000;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-left: 4px solid #000;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .problem-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .solution-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .benefits-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .visual-placeholder {
+            background: #e9ecef;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            border: 2px dashed #6c757d;
+            border-radius: 5px;
+        }
+        
+        .decision-box {
+            background: #e7f3ff;
+            border: 2px solid #0066cc;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        
+        .decision-box h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        
+        .optional-section {
+            background: #f8f9fa;
+            border-top: 2px solid #dee2e6;
+            padding: 40px;
+        }
+        
+        .expandable {
+            margin-bottom: 20px;
+        }
+        
+        .expandable-header {
+            background: #e9ecef;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .expandable-header:hover {
+            background: #dee2e6;
+        }
+        
+        .expandable-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .expandable.active .expandable-content {
+            display: block;
+        }
+        
+        .expandable-header::after {
+            content: '▼';
+            font-size: 0.8em;
+        }
+        
+        .expandable.active .expandable-header::after {
+            content: '▲';
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .timeline {
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            padding: 15px 0;
+            border-left: 3px solid #000;
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+        
+        .timeline-item h4 {
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        @media print {
+            .expandable-content {
+                display: block !important;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CAMD PhD Mentoring & Development System</h1>
+            <p>A Comprehensive Solution for Student Development, Faculty Support, and Administrative Tracking</p>
+        </header>
+        
+        <div class="core-content">
+            <div class="read-time">⏱️ 3-minute executive read | Optional sections below for detail</div>
+            
+            <h2>The Problem</h2>
+            <div class="problem-box">
+                <p><strong>Our doctoral program faces three critical challenges:</strong></p>
+                <ul>
+                    <li><strong>Irregular faculty-student meetings:</strong> Inconsistent advising leads to student isolation and unclear expectations</li>
+                    <li><strong>Poor communication:</strong> Untimely responses and unclear channels create frustration and delays</li>
+                    <li><strong>Milestone confusion:</strong> Students unclear about readiness criteria for qualifying exams, proposal defenses, and dissertations, leading to poor performance</li>
+                </ul>
+                <p><strong>Impact:</strong> 77 students and 57 faculty advisors across 6 departments struggle with communication, milestone preparation, and relationship management in our interdisciplinary program.</p>
+            </div>
+            
+            <h2>The Solution</h2>
+            <div class="solution-box">
+                <p><strong>An integrated 6-component system using WordPress/Formidable Forms</strong> that supports the complete doctoral journey from onboarding through graduation:</p>
+                
+                <ol>
+                    <li><strong>Individual Development Plan (IDP):</strong> Students track goals, skills, research progress, and career planning across 5 years</li>
+                    <li><strong>Lab Manual:</strong> Faculty document lab culture, expectations, and resources once for all advisees</li>
+                    <li><strong>Advising Compact:</strong> Collaboratively created agreement between student and advisor establishing communication protocols, expectations, and milestone plans</li>
+                    <li><strong>Summer Check-ins:</strong> Developmental reflection every August (CV/resume required)</li>
+                    <li><strong>Fall Check-ins:</strong> Progress review every December</li>
+                    <li><strong>Annual Review (360°):</strong> Comprehensive evaluation with student self-assessment, faculty assessment, student feedback on advising, and faculty self-reflection</li>
+                </ol>
+                
+                <p><strong>Key Innovation:</strong> Forms integrate with each other—IDP data flows into Compact, check-ins reference goals, annual reviews build on previous feedback. Students and faculty work within one unified system rather than scattered documents.</p>
+            </div>
+            
+            <h2>Key Benefits</h2>
+            <div class="benefits-box">
+                <table>
+                    <tr>
+                        <th>Stakeholder</th>
+                        <th>Primary Benefit</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Students</strong></td>
+                        <td>Clear expectations, structured development, longitudinal self-tracking, proactive career planning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Faculty</strong></td>
+                        <td>Reduced administrative burden (create lab manual once), structured advising framework, visibility into student progress, 360° feedback on their mentoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Administration</strong></td>
+                        <td>Centralized tracking, early warning system for student issues, probation/dismissal flagging, compliance documentation, submission monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Program</strong></td>
+                        <td>Improved retention, better milestone performance, stronger advisor-student relationships, data-driven program improvements</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="visual-placeholder">
+                <h3>System Architecture Visual</h3>
+                <p><em>See separate interactive document for detailed component diagram and data flows</em></p>
+                <p style="margin-top: 15px; color: #6c757d;">Interactive visualization shows 6 components, integration points, user roles, and 5-year timeline</p>
+            </div>
+            
+            <h2>Why This Approach Succeeds</h2>
+            <p><strong>Context:</strong> This builds on the Program Director's multi-year vision for an integrated development system. Previous approaches encountered barriers:</p>
+            
+            <ul>
+                <li><strong>Microsoft Dataverse system:</strong> Required additional storage costs and significant development time</li>
+                <li><strong>Microsoft products (Teams/Excel/Word):</strong> Too disconnected, no integration between components</li>
+                <li><strong>Canvas LMS:</strong> Poor adoption—didn't match mental model of mentoring relationships, felt like "coursework"</li>
+                <li><strong>Standalone Word IDP:</strong> No connection to advising or review processes, static document</li>
+            </ul>
+            
+            <p><strong>This WordPress/Formidable approach addresses all previous limitations:</strong></p>
+            <ul>
+                <li>✅ Uses existing university infrastructure (no additional costs)</li>
+                <li>✅ Integrated forms with data sharing (not disconnected documents)</li>
+                <li>✅ Designed specifically for developmental mentoring relationships</li>
+                <li>✅ Familiar web form interface (high adoption likelihood)</li>
+                <li>✅ Supports interdisciplinary research (STEM, Humanities, Practice-Based adaptations)</li>
+                <li>✅ Maintains focus on student development and faculty support (administrative tracking is byproduct, not driver)</li>
+            </ul>
+            
+            <h2>Implementation Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Phase 1: Build Forms (Weeks 1-3)</h4>
+                    <p>Create all 6 forms in Formidable, configure integration, set up user roles</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Phase 2: Pilot Testing (Week 4)</h4>
+                    <p>Test with 3-5 students and faculty, gather feedback, refine</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Phase 3: Full Rollout (Week 5-6)</h4>
+                    <p>Onboard all 134 users, provide training materials, launch system</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Phase 4: Iteration (Ongoing)</h4>
+                    <p>Monitor usage, collect feedback, adjust forms as needed</p>
+                </div>
+            </div>
+            
+            <div class="decision-box">
+                <h3>What We're Asking</h3>
+                <p><strong>We seek your feedback and approval to proceed with implementation.</strong></p>
+                <p style="margin-top: 15px;"><strong>Resources Required:</strong></p>
+                <ul>
+                    <li>WordPress/Formidable Forms (already available via CampusPress)</li>
+                    <li>Implementation time: ~6 weeks to full deployment</li>
+                    <li>No additional budget required</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Questions for Discussion:</strong></p>
+                <ul>
+                    <li>Does this approach align with college/university priorities for doctoral student support?</li>
+                    <li>Are there concerns about the 360° review component (students providing feedback on faculty advising)?</li>
+                    <li>What metrics should we track to assess system effectiveness?</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="optional-section">
+            <h2>Optional: Additional Context & Details</h2>
+            <p style="margin-bottom: 30px;"><em>The following sections provide deeper detail for those interested. Click to expand any section.</em></p>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    Foundation Work Completed Independently <span class="tag">FYI</span>
+                </div>
+                <div class="expandable-content">
+                    <h3>Research & Analysis</h3>
+                    <p>Conducted comprehensive comparative analysis of 21 mentoring documents from institutions including:</p>
+                    <ul>
+                        <li>AAMC (Association of American Medical Colleges) compact framework</li>
+                        <li>Stanford, NYU, University of Wisconsin-Madison, Tufts lab manuals</li>
+                        <li>Various individual faculty lab guidelines and mentoring compacts</li>
+                    </ul>
+                    <p>Analysis covered 14 dimensions: audience, detail level, themes, approach, structure, communication protocols, timeline specificity, dual-direction expectations, conflict resolution, discipline scope, career pathways, and review frequency.</p>
+                    
+                    <h3>8 Foundational Documents Created</h3>
+                    <ol>
+                        <li><strong>CAMD PhD Mentoring Guide (23 pages):</strong> Comprehensive reference covering interdisciplinary mentoring, communication protocols, milestone preparation with countdown timelines, research approaches, professional development</li>
+                        <li><strong>Initial Alignment Worksheet (7-8 pages):</strong> Structured discussion tool for students and advisors to create compact</li>
+                        <li><strong>Advising Compact Template (4-5 pages):</strong> AI-enhanced generation from worksheet responses</li>
+                        <li><strong>Co-Advisor Agreement (4-5 pages):</strong> For Year 2 when co-advisor selected</li>
+                        <li><strong>Lab Manual - STEM/Computational Focus (8 pages)</strong></li>
+                        <li><strong>Lab Manual - Humanities/Social Science Focus (8 pages)</strong></li>
+                        <li><strong>Lab Manual - Practice-Based/Creative Focus (8 pages)</strong></li>
+                        <li><strong>Lab Manual - Modular Version (12 pages):</strong> Mix-and-match for interdisciplinary faculty</li>
+                    </ol>
+                    
+                    <h3>SharePoint Infrastructure Designed</h3>
+                    <p>Complete 15-page hub architecture with navigation, user journey maps, and content strategy. Can be deployed alongside or instead of WordPress system depending on preferences.</p>
+                    
+                    <h3>IDP Template Development</h3>
+                    <p>Created initial IDP structure (DRAFT_IDP_IDaM.docx) with year-by-year semester planning, milestone tracking, and development goals. This forms foundation for the dynamic IDP form in the system.</p>
+                </div>
+            </div>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    System Development with AI Assistance <span class="tag">FYI</span>
+                </div>
+                <div class="expandable-content">
+                    <h3>AI-Assisted Development Components</h3>
+                    <p>The following components were developed with AI assistance to accelerate design and ensure technical feasibility:</p>
+                    
+                    <ul>
+                        <li><strong>Form integration architecture:</strong> How IDP, Compact, Check-ins, and Annual Review share data</li>
+                        <li><strong>WordPress/Formidable specifications:</strong> Exact field structures, conditional logic, validation rules</li>
+                        <li><strong>User role and permissions design:</strong> Student, faculty, and administrator access controls</li>
+                        <li><strong>Discipline-specific adaptations:</strong> How forms adapt for STEM, Humanities, and Practice-Based research</li>
+                        <li><strong>360° review workflow:</strong> Student self-assessment, faculty assessment, mutual feedback, discussion guide generation</li>
+                        <li><strong>Implementation timeline and phasing:</strong> Build sequence, testing approach, rollout strategy</li>
+                    </ul>
+                    
+                    <h3>Development Process</h3>
+                    <p>Iterative design through 5 focused work sessions:</p>
+                    <ol>
+                        <li><strong>Document system design:</strong> Creating foundational mentoring documents</li>
+                        <li><strong>SharePoint architecture:</strong> Information architecture and navigation design</li>
+                        <li><strong>Technical prototyping:</strong> IDP application development and testing</li>
+                        <li><strong>System integration:</strong> Connecting all components with data flows</li>
+                        <li><strong>WordPress implementation:</strong> Translating design into Formidable specifications</li>
+                    </ol>
+                    
+                    <p><strong>AI Role:</strong> System architecture, technical specifications, integration design, implementation planning</p>
+                    <p><strong>Human Role:</strong> Vision, domain expertise, decision-making, content creation, stakeholder requirements</p>
+                </div>
+            </div>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    Detailed Component Descriptions <span class="tag">Optional</span>
+                </div>
+                <div class="expandable-content">
+                    <h3>1. Individual Development Plan (IDP)</h3>
+                    <p><strong>Purpose:</strong> Longitudinal tracking of student goals, skills, research progress, and career planning across entire 5-year program.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>Created in Year 1, updated throughout program</li>
+                        <li>Year-by-year goal setting (Fall/Spring/Summer each year)</li>
+                        <li>Research approach identification (STEM/Humanities/Practice-Based)</li>
+                        <li>Milestone planning with target dates</li>
+                        <li>Skills development tracking</li>
+                        <li>Career pathway exploration scaffolded by year</li>
+                        <li>CV/resume archive (uploaded with check-ins)</li>
+                    </ul>
+                    
+                    <h3>2. Lab Manual</h3>
+                    <p><strong>Purpose:</strong> Faculty document their research culture, expectations, and resources once for all advisees.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>Created once by faculty, updated annually</li>
+                        <li>Discipline-specific templates (STEM/Humanities/Practice-Based)</li>
+                        <li>Communication norms, meeting expectations, lab citizenship</li>
+                        <li>Resources available (equipment, software, funding)</li>
+                        <li>Authorship and credit policies</li>
+                        <li>Professional development support</li>
+                    </ul>
+                    
+                    <h3>3. Advising Compact</h3>
+                    <p><strong>Purpose:</strong> Collaboratively created agreement establishing communication protocols, expectations, and milestone plans.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>Student section: Working style, career goals, support needs</li>
+                        <li>Advisor section: Mentoring approach, availability, resources</li>
+                        <li>Mutual agreements: Meeting schedule, response times, feedback timelines</li>
+                        <li>Pre-populated with data from IDP and Lab Manual</li>
+                        <li>Reviewed and updated annually</li>
+                        <li>Both parties sign electronically</li>
+                    </ul>
+                    
+                    <h3>4. Summer Check-in (5 submissions over program)</h3>
+                    <p><strong>Purpose:</strong> Developmental reflection every August focusing on research growth, not just task completion.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>Research development questions (how thinking has evolved)</li>
+                        <li>Discipline-specific prompts (all visible, student chooses relevant ones)</li>
+                        <li>Creative/practical/theoretical integration</li>
+                        <li>Career orientation (scaffolded by year)</li>
+                        <li>Support needs identification</li>
+                        <li>CV/resume upload (REQUIRED for summer)</li>
+                        <li>15-20 minute completion time</li>
+                    </ul>
+                    
+                    <h3>5. Fall Check-in (5 submissions over program)</h3>
+                    <p><strong>Purpose:</strong> Progress review every December with forward planning for spring semester.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>Same structure as Summer check-in</li>
+                        <li>Additional: Review of last Annual Review feedback and progress</li>
+                        <li>Spring semester planning</li>
+                        <li>CV/resume upload (optional for fall)</li>
+                    </ul>
+                    
+                    <h3>6. Annual Review (360°)</h3>
+                    <p><strong>Purpose:</strong> Comprehensive evaluation with mutual feedback, generating discussion guide for developmental conversation.</p>
+                    <p><strong>Four Components:</strong></p>
+                    <ol>
+                        <li><strong>Student Self-Assessment:</strong> Research progress, challenges, growth, career planning</li>
+                        <li><strong>Faculty Assessment:</strong> Student progress, skills development, areas for growth, recommendations
+                            <ul>
+                                <li>Includes confidential section for probation/dismissal flagging (visible only to Academic Director)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Student Feedback on Advising:</strong> What's working, what could improve, requests for changes</li>
+                        <li><strong>Faculty Self-Reflection:</strong> What's working in relationship, how I could support better, commitments for year ahead</li>
+                    </ol>
+                    <p><strong>Process:</strong> Both parties complete forms → System generates discussion guide → Meeting occurs → Both sign off → Compact updated if needed</p>
+                </div>
+            </div>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    Pros, Cons, and Considerations <span class="tag">Important</span>
+                </div>
+                <div class="expandable-content">
+                    <h3>Advantages</h3>
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <th>Advantage</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost</strong></td>
+                            <td>Uses existing CampusPress/Formidable infrastructure. No additional budget required.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adoption</strong></td>
+                            <td>Familiar web form interface. Not associated with Canvas (previous resistance) or complex LMS navigation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration</strong></td>
+                            <td>Forms share data automatically. Students don't re-enter same information across forms.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexibility</strong></td>
+                            <td>Easy to modify forms based on feedback. Not locked into rigid system architecture.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ownership</strong></td>
+                            <td>Program controls everything. Not dependent on university IT timelines or policies.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scalability</strong></td>
+                            <td>Can add more forms or features as needs evolve. System grows with program.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Access</strong></td>
+                            <td>All submission data exportable to CSV/Excel for analysis. Academic Director has full visibility.</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Challenges & Mitigation Strategies</h3>
+                    <table>
+                        <tr>
+                            <th>Challenge</th>
+                            <th>Mitigation Strategy</th>
+                        </tr>
+                        <tr>
+                            <td><strong>User Account Management:</strong> 134 WordPress accounts to create and maintain</td>
+                            <td>CSV bulk import (30 minutes initial setup). Password resets handled by standard WordPress email system. Minimal ongoing maintenance.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Initial Build Time:</strong> 6 weeks to full deployment</td>
+                            <td>Phased approach: Build → Test → Refine → Deploy. Each form tested before moving to next.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Training Required:</strong> Students and faculty need orientation</td>
+                            <td>Create video tutorials and written guides. Simple interface reduces training burden. Similar to completing any web form.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adoption Resistance:</strong> "Another system to learn"</td>
+                            <td>Frame as replacing scattered emails and Word docs, not adding work. Emphasize time savings (lab manual created once, IDP tracks everything in one place).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>360° Review Sensitivity:</strong> Faculty receiving student feedback</td>
+                            <td>Frame as developmental, not evaluative. Faculty self-reflection demonstrates openness to growth. Both parties provide feedback (mutual respect).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compliance Concerns:</strong> Are we meeting requirements?</td>
+                            <td>System documents all required interactions (annual reviews, milestone preparations). Creates audit trail. Probation/dismissal flagging ensures early intervention.</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Areas Requiring Leadership Input</h3>
+                    <ul>
+                        <li><strong>360° Review Approval:</strong> Is the institution comfortable with students providing feedback on faculty advising? This is a cultural shift from one-directional evaluation.</li>
+                        <li><strong>Confidential Faculty Reporting:</strong> How should probation/dismissal flags be processed? Who reviews them? What's the timeline for Academic Director action?</li>
+                        <li><strong>Data Retention:</strong> How long should student development data be retained after graduation? University policy suggests 7 years from last attendance.</li>
+                        <li><strong>Success Metrics:</strong> How will we know this system is working? Suggested metrics: submission completion rates, milestone success rates, student satisfaction surveys, faculty adoption rates.</li>
+                        <li><strong>Mandatory vs. Optional:</strong> Should all components be required, or can students/faculty opt out of certain elements (e.g., check-ins)?</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    Technical Implementation Details <span class="tag">FYI</span>
+                </div>
+                <div class="expandable-content">
+                    <h3>Platform: WordPress with Formidable Forms Pro</h3>
+                    <p><strong>Why Formidable Forms:</strong></p>
+                    <ul>
+                        <li>Already available on CampusPress installation</li>
+                        <li>Pro version includes Views (displaying submitted data back to users)</li>
+                        <li>Front-end editing (advisors can add to student-started forms)</li>
+                        <li>Conditional logic (forms adapt based on research approach)</li>
+                        <li>File uploads (CV/resume storage, max 52MB per file)</li>
+                        <li>Email notifications (customizable to Academic Director, students, faculty)</li>
+                        <li>Data export (CSV/Excel for analysis)</li>
+                    </ul>
+                    
+                    <h3>User Roles & Permissions</h3>
+                    <table>
+                        <tr>
+                            <th>Role</th>
+                            <th>Can Access</th>
+                            <th>Permissions</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Student</strong></td>
+                            <td>Own IDP, Compact, Check-ins, Annual Review</td>
+                            <td>Create, edit own submissions. View own data. Cannot see other students.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Faculty</strong></td>
+                            <td>Lab Manual, Advisees' forms</td>
+                            <td>Create Lab Manual. View/edit advisees' Compacts and Annual Reviews. Cannot see non-advisees.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Academic Director</strong></td>
+                            <td>All submissions</td>
+                            <td>Full visibility. Receive all notifications. Export all data. Monitor completion.</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Data Security & Privacy</h3>
+                    <ul>
+                        <li>All data stored on Northeastern-controlled CampusPress servers</li>
+                        <li>WordPress user authentication required for access</li>
+                        <li>SSL encryption for all data transmission</li>
+                        <li>Role-based access control (users only see their own data or advisees' data)</li>
+                        <li>Confidential faculty flags visible only to Academic Director</li>
+                        <li>Compliant with university data retention policies</li>
+                    </ul>
+                    
+                    <h3>Integration Architecture</h3>
+                    <p><strong>Data Flows:</strong></p>
+                    <ul>
+                        <li>IDP profile data → Auto-populates Compact student section</li>
+                        <li>Lab Manual → Referenced during Compact creation</li>
+                        <li>IDP goals → Displayed in Check-ins for reflection</li>
+                        <li>Check-in responses → Summarized in Annual Review</li>
+                        <li>Annual Review feedback → Referenced in next year's review</li>
+                        <li>Compact agreements → Checked against in Check-ins (e.g., "Are you meeting as agreed?")</li>
+                    </ul>
+                    
+                    <h3>Mobile Accessibility</h3>
+                    <p>All forms fully responsive:</p>
+                    <ul>
+                        <li>Work on phones, tablets, laptops, desktops</li>
+                        <li>Touch-friendly interfaces</li>
+                        <li>Progress saved automatically</li>
+                        <li>Students can complete on any device</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    Comparison to Previous Approaches <span class="tag">Context</span>
+                </div>
+                <div class="expandable-content">
+                    <table>
+                        <tr>
+                            <th>Approach</th>
+                            <th>Why It Didn't Work</th>
+                            <th>How This Addresses It</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Microsoft Dataverse</strong></td>
+                            <td>Required additional storage costs. Significant development time. Complex architecture.</td>
+                            <td>Uses existing CampusPress infrastructure. No additional costs. Formidable handles complexity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microsoft Products (Teams/Excel/Word)</strong></td>
+                            <td>Too disconnected. No integration. Manual data entry across multiple places. Version control nightmares.</td>
+                            <td>Integrated forms with automatic data sharing. Single source of truth. No version control issues.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Canvas LMS</strong></td>
+                            <td>Poor adoption. Felt like "coursework." Didn't match mental model of mentoring relationships. Complex navigation.</td>
+                            <td>Designed specifically for developmental relationships. Simple form interface. Not associated with coursework.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Standalone Word IDP</strong></td>
+                            <td>Static document. No connection to advising or reviews. Students lost files. No longitudinal tracking.</td>
+                            <td>Dynamic IDP integrated with all other components. Longitudinal tracking across 5 years. Central storage.</td>
+                        </tr>
+                    </table>
+                    
+                    <p style="margin-top: 20px;"><strong>Key Learning:</strong> Previous approaches either required too much infrastructure (Dataverse), were too disconnected (Microsoft products), didn't match the work (Canvas), or were too limited (Word doc). This WordPress/Formidable approach balances accessibility, integration, appropriateness, and feasibility.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>Prepared by:</strong> David Dawson, Graduate Administrator & Academic Director</p>
+            <p><strong>CAMD PhD in Interdisciplinary Design and Media</strong></p>
+            <p><strong>Date:</strong> November 2025</p>
+            <p style="margin-top: 20px; font-size: 0.9em;">Questions or feedback: d.dawson@northeastern.edu</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Expandable sections
+        document.querySelectorAll('.expandable-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

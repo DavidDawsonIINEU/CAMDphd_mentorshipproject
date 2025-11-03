@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advising Compact Mockup - CAMD PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-notice {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mockup-notice h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1E90FF 0%, #4169E1 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .workflow-indicator {
+            background: #e7f3ff;
+            padding: 20px;
+            margin: 30px 40px;
+            border-radius: 8px;
+            border: 2px solid #1E90FF;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            align-items: center;
+        }
+        
+        .workflow-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .workflow-step.active {
+            background: #1E90FF;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        
+        .workflow-arrow {
+            font-size: 1.5em;
+            color: #666;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .auto-populated-notice {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+        
+        .auto-populated-notice h3 {
+            color: #155724;
+            margin-bottom: 8px;
+        }
+        
+        .auto-populated-notice ul {
+            margin-left: 20px;
+            color: #155724;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+        
+        .field-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1E90FF;
+            box-shadow: 0 0 0 3px rgba(30,144,255,0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        .auto-filled {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        
+        .auto-filled-label {
+            background: #4caf50;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .section-divider {
+            border-top: 3px solid #1E90FF;
+            margin: 50px 0 30px 0;
+            padding-top: 30px;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 30px -40px;
+            border-left: 5px solid #1E90FF;
+        }
+        
+        .radio-group {
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            margin-bottom: 12px;
+        }
+        
+        .radio-option input {
+            margin-right: 8px;
+        }
+        
+        .radio-option label {
+            display: inline;
+            font-weight: normal;
+        }
+        
+        .agreements-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .agreements-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .agreements-table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .agreements-table input,
+        .agreements-table select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1E90FF;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1873cc;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .signature-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-notice">
+        <h2>⚠️ EARLY DRAFT MOCKUP - NOT FINAL DESIGN</h2>
+        <p><strong>This demonstrates the Advising Compact creation process and auto-population from IDP.</strong></p>
+        <p>Shows both student and advisor sections. Final WordPress/Formidable version will have enhanced functionality.</p>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🤝 Advising Compact</h1>
+            <p>Collaborative Agreement • Jane Smith + Dr. Maria Rodriguez</p>
+        </div>
+        
+        <div class="workflow-indicator">
+            <h3 style="margin-bottom: 10px; color: #0c5460;">Two-Step Process</h3>
+            <div class="workflow-steps">
+                <div class="workflow-step active">
+                    <div>1️⃣ Student Section</div>
+                    <small>Pre-populated from IDP</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div>2️⃣ Advisor Section</div>
+                    <small>References Lab Manual</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div>3️⃣ Agreements</div>
+                    <small>Completed together</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div>4️⃣ Signatures</div>
+                    <small>Both parties sign</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-content">
+            <div class="auto-populated-notice">
+                <h3>✓ Information Auto-Populated from Your IDP</h3>
+                <ul style="margin-top: 10px;">
+                    <li>Student profile (name, email, NUID, department)</li>
+                    <li>Research approach and area</li>
+                    <li>Career goals and aspirations</li>
+                    <li>Primary advisor information</li>
+                    <li>Milestone target dates</li>
+                </ul>
+                <p style="margin-top: 10px; font-size: 0.9em;">You can edit any auto-populated fields if they've changed.</p>
+            </div>
+            
+            <div class="section-header">
+                <h3>Student Section: Working Style & Goals</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Preferred Working Style
+                    <span class="auto-filled-label">AUTO-FILLED</span>
+                </label>
+                <p class="field-description">How you work best - helps your advisor understand how to support you</p>
+                <textarea rows="5" class="auto-filled">I work best with structure and clear deadlines, but also need flexibility to explore ideas. I prefer to work independently on initial research and writing, then bring drafts to advisor for feedback.
+
+I appreciate frequent check-ins (weekly works well for me) because I can get stuck in my head and need external input to keep moving forward. I'm comfortable with direct feedback as long as it's constructive.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Career Goals
+                    <span class="auto-filled-label">FROM IDP</span>
+                </label>
+                <textarea rows="5" class="auto-filled">Interested in academic careers (tenure-track faculty) but also exploring research positions in nonprofit organizations focused on media and social justice. Want to understand both paths better through informational interviews and professional development opportunities.
+
+Long-term goal: Research that makes a difference in how people understand media's role in social change.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Support Needs</label>
+                <p class="field-description">What support do you need from your advisor?</p>
+                <textarea rows="5" placeholder="What would help you succeed?">- Guidance on narrowing research question (working on this together)
+- Feedback on writing at multiple stages (rough drafts to polished)
+- Introduction to scholars in my area
+- Support for conference proposals and presentations
+- Career planning conversations (academic and non-academic paths)
+- Help navigating qualifying exam preparation</textarea>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h3>Advisor Section: Mentoring Approach & Resources</h3>
+            </div>
+            
+            <p style="background: #fff3cd; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                <strong>📝 Note:</strong> This section is completed by your advisor. It may reference their Lab Manual. The information below shows what advisors provide in this section.
+            </p>
+            
+            <div class="form-group">
+                <label>
+                    Mentoring Philosophy
+                    <span class="auto-filled-label">FROM LAB MANUAL</span>
+                </label>
+                <textarea rows="5" class="auto-filled">I believe in supporting student independence while providing structured guidance. My approach is Socratic - I ask questions to help you develop your thinking rather than giving direct answers.
+
+I value intellectual curiosity, rigorous analysis, and work that matters beyond academic circles. I expect students to take ownership of their research while staying in regular communication about progress and challenges.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Availability & Response Times
+                    <span class="auto-filled-label">FROM LAB MANUAL</span>
+                </label>
+                <textarea rows="3" class="auto-filled">Typical work hours: Monday-Friday 9am-6pm, some evenings
+Email response: Within 24-48 hours
+Urgent matters: Text or Slack, response within 4 hours</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Resources Provided</label>
+                <textarea rows="4" placeholder="Equipment, funding, software, space...">- Office space in Renaissance Hall
+- Access to qualitative analysis software (NVivo site license)
+- Research funding up to $1,500/year for conferences, materials, transcription
+- Introduction to professional network in media studies
+- Support for conference travel (1-2 conferences per year)</textarea>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h3>Mutual Agreements: Communication Protocols</h3>
+            </div>
+            
+            <p style="background: #e7f3ff; padding: 15px; border-radius: 6px; margin-bottom: 25px; border-left: 4px solid #0066cc;">
+                <strong>💬 Complete together:</strong> These agreements establish clear expectations for both parties. Be specific - "weekly" is clearer than "regularly."
+            </p>
+            
+            <div class="form-group">
+                <label>Meeting Frequency</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="frequency" id="freq1" checked>
+                        <label for="freq1">Weekly</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="frequency" id="freq2">
+                        <label for="freq2">Bi-weekly</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="frequency" id="freq3">
+                        <label for="freq3">Monthly</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="frequency" id="freq4">
+                        <label for="freq4">Varies by project stage</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Standing Meeting Time</label>
+                <p class="field-description">If applicable - having a consistent time helps both parties plan</p>
+                <input type="text" placeholder="e.g., Tuesdays 2-3pm" value="Tuesdays 2:00-3:00pm">
+            </div>
+            
+            <div class="form-group">
+                <label>Communication Channels & When to Use Each</label>
+                <p class="field-description">Be specific about which channel for which purpose</p>
+                <table class="agreements-table">
+                    <thead>
+                        <tr>
+                            <th>Purpose</th>
+                            <th>Channel</th>
+                            <th>Expected Response Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quick questions</td>
+                            <td><input type="text" value="Slack"></td>
+                            <td><input type="text" value="Within 4 hours during work hours"></td>
+                        </tr>
+                        <tr>
+                            <td>Scheduling meetings</td>
+                            <td><input type="text" value="Email"></td>
+                            <td><input type="text" value="Within 24 hours"></td>
+                        </tr>
+                        <tr>
+                            <td>Sharing drafts</td>
+                            <td><input type="text" value="Google Docs link via email"></td>
+                            <td><input type="text" value="1 week for chapters, 3 days for short drafts"></td>
+                        </tr>
+                        <tr>
+                            <td>Urgent matters</td>
+                            <td><input type="text" value="Text message"></td>
+                            <td><input type="text" value="Within 4 hours"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h3>Mutual Agreements: Milestones & Timeline</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Qualifying Exam Target Date
+                    <span class="auto-filled-label">FROM IDP</span>
+                </label>
+                <input type="date" value="2026-11-15" class="auto-filled">
+            </div>
+            
+            <div class="form-group">
+                <label>Qualifying Exam Preparation Plan</label>
+                <p class="field-description">How will we prepare together?</p>
+                <textarea rows="5" placeholder="Reading lists, practice exams, timeline...">12-Week Preparation Plan (starting September 2026):
+- Weeks 1-8: Complete reading lists for both fields (Media Studies, Social Movement Theory)
+- Weeks 9-10: Practice writing exam responses, advisor feedback
+- Week 11: Mock exam with committee members
+- Week 12: Final preparation and review
+
+Student commits to: Reading 3-4 sources per week, draft responses for feedback
+Advisor commits to: Weekly check-ins on reading, detailed feedback on practice responses, coordinate mock exam</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Proposal Defense Target
+                    <span class="auto-filled-label">FROM IDP</span>
+                </label>
+                <input type="date" value="2028-04-15" class="auto-filled">
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h3>Mutual Agreements: Professional Development</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>Conference Attendance Plan</label>
+                <textarea rows="4" placeholder="Which conferences, how often, funding support...">Year 1: Attend ICA as participant (if proposal accepted), observe and network
+Year 2: Present at ICA or NCA, submit to second conference
+Year 3+: Present at 1-2 conferences annually
+
+Funding: Up to $1,500/year from advisor research funds, apply for PhD Network travel grants</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Publication Goals</label>
+                <textarea rows="4" placeholder="Timeline, target venues, support provided...">Year 2: Submit first conference paper to journal (target: Communication Research or JoC)
+Year 3: Second publication (conference paper or book chapter)
+Year 4-5: Dissertation chapters as articles
+
+Advisor will: Review drafts, suggest appropriate venues, connect with journal editors, support revision process</textarea>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h3>Annual Review & Compact Updates</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>Annual Review Process</label>
+                <textarea rows="4">We will complete the 360° Annual Review each April:
+- Both complete our sections independently (student self-assessment + feedback on advising; faculty assessment + self-reflection)
+- Meet to discuss using generated discussion guide
+- Identify action items for both parties
+- Update this compact if our agreements need adjustment
+- Both sign off on outcomes</textarea>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 style="margin-bottom: 20px;">Signatures</h2>
+            
+            <p style="color: #666; margin-bottom: 30px;">By signing below, both parties agree to the commitments outlined in this compact and commit to reviewing and updating it annually.</p>
+            
+            <div class="signature-box">
+                <div class="form-group">
+                    <label>Student Signature</label>
+                    <p class="field-description">Type your full name to confirm your agreement</p>
+                    <input type="text" placeholder="Full name" value="Jane Smith">
+                </div>
+                
+                <div class="form-group">
+                    <label>Student Signature Date</label>
+                    <input type="date" value="2025-10-15" class="auto-filled" readonly>
+                </div>
+            </div>
+            
+            <div class="signature-box" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Advisor Signature</label>
+                    <p class="field-description">Type your full name to confirm your agreement</p>
+                    <input type="text" placeholder="Full name" value="Maria Rodriguez">
+                </div>
+                
+                <div class="form-group">
+                    <label>Advisor Signature Date</label>
+                    <input type="date" value="2025-10-15" class="auto-filled" readonly>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary">Save Draft</button>
+                <button class="btn-primary">Submit Signed Compact →</button>
+            </div>
+            
+            <div style="background: #d4edda; padding: 20px; border-radius: 6px; margin-top: 30px; border: 1px solid #c3e6cb;">
+                <p style="font-size: 0.95em; color: #155724;"><strong>✓ After you submit:</strong></p>
+                <p style="font-size: 0.9em; color: #155724; margin-top: 8px;">• Both parties receive copy via email</p>
+                <p style="font-size: 0.9em; color: #155724;">• Compact filed with Academic Director</p>
+                <p style="font-size: 0.9em; color: #155724;">• Referenced in future check-ins and annual reviews</p>
+                <p style="font-size: 0.9em; color: #155724;">• Reviewed and updated each April</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

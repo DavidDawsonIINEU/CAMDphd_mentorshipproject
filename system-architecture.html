@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMD PhD Mentoring System - Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        header {
+            background: #000;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .diagram-container {
+            background: #fafafa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .component {
+            background: white;
+            border: 3px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .component.active {
+            border-color: #0066cc;
+            background: #e7f3ff;
+        }
+        
+        .component h3 {
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .component-type {
+            display: inline-block;
+            background: #000;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin-bottom: 10px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        .detail-panel {
+            display: none;
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .detail-panel.active {
+            display: block;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .legend-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            margin-right: 15px;
+            border: 2px solid #000;
+        }
+        
+        .timeline {
+            margin: 40px 0;
+        }
+        
+        .timeline-year {
+            background: white;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .timeline-year h4 {
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .timeline-events {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .event {
+            background: #e9ecef;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .event.required {
+            background: #ffc107;
+            font-weight: 600;
+        }
+        
+        .data-flow {
+            background: white;
+            border: 2px dashed #0066cc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .user-roles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .role-card {
+            background: white;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .role-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-3, .grid-2, .user-roles {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .component:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .detail-panel {
+                display: block;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CAMD PhD Mentoring System Architecture</h1>
+            <p>Interactive System Diagram | Click components for details</p>
+        </header>
+        
+        <div class="content">
+            <h2>System Overview</h2>
+            <p style="margin-bottom: 30px;">An integrated 6-component system supporting students, faculty, and administrators throughout the 5-year doctoral journey. Click any component below to see detailed specifications.</p>
+            
+            <div class="legend">
+                <h3>Component Key</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d4edda;"></div>
+                    <div><strong>Foundation:</strong> Created early, referenced by other components</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d1ecf1;"></div>
+                    <div><strong>Recurring:</strong> Submitted multiple times throughout program</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff3cd;"></div>
+                    <div><strong>Annual:</strong> Once per year</div>
+                </div>
+            </div>
+            
+            <h2>Core Components</h2>
+            
+            <div class="diagram-container">
+                <h3 style="margin-bottom: 20px;">Foundation Components (Created Once/Early)</h3>
+                <div class="grid-2">
+                    <div class="component" data-component="idp" style="background: #d4edda;">
+                        <span class="component-type">FOUNDATION</span>
+                        <h3>📋 Individual Development Plan (IDP)</h3>
+                        <p><strong>Owner:</strong> Student</p>
+                        <p><strong>Created:</strong> Year 1, updated throughout</p>
+                        <p><strong>Purpose:</strong> Longitudinal goal tracking, skills development, career planning</p>
+                    </div>
+                    
+                    <div class="component" data-component="labmanual" style="background: #d4edda;">
+                        <span class="component-type">FOUNDATION</span>
+                        <h3>🔬 Lab Manual</h3>
+                        <p><strong>Owner:</strong> Faculty</p>
+                        <p><strong>Created:</strong> Once, updated annually</p>
+                        <p><strong>Purpose:</strong> Document lab culture, expectations, resources for all advisees</p>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">⬇️</div>
+                
+                <div class="grid-1">
+                    <div class="component" data-component="compact" style="background: #d4edda;">
+                        <span class="component-type">FOUNDATION</span>
+                        <h3>🤝 Advising Compact</h3>
+                        <p><strong>Owners:</strong> Student + Faculty (collaborative)</p>
+                        <p><strong>Created:</strong> Year 1, reviewed/updated annually</p>
+                        <p><strong>Purpose:</strong> Communication agreements, expectations, milestone plans</p>
+                        <p><strong>Integration:</strong> Pulls from IDP and Lab Manual</p>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">⬇️</div>
+                
+                <h3 style="margin: 30px 0 20px 0;">Recurring Components (Throughout Program)</h3>
+                <div class="grid-3">
+                    <div class="component" data-component="summercheck" style="background: #d1ecf1;">
+                        <span class="component-type">RECURRING</span>
+                        <h3>☀️ Summer Check-in</h3>
+                        <p><strong>Owner:</strong> Student</p>
+                        <p><strong>Frequency:</strong> Every August (5 times)</p>
+                        <p><strong>Duration:</strong> 15-20 minutes</p>
+                        <p><strong>Required:</strong> CV/Resume upload</p>
+                    </div>
+                    
+                    <div class="component" data-component="fallcheck" style="background: #d1ecf1;">
+                        <span class="component-type">RECURRING</span>
+                        <h3>🍂 Fall Check-in</h3>
+                        <p><strong>Owner:</strong> Student</p>
+                        <p><strong>Frequency:</strong> Every December (5 times)</p>
+                        <p><strong>Duration:</strong> 15-20 minutes</p>
+                        <p><strong>Optional:</strong> CV/Resume upload</p>
+                    </div>
+                    
+                    <div class="component" data-component="annual" style="background: #fff3cd;">
+                        <span class="component-type">ANNUAL</span>
+                        <h3>📊 Annual Review (360°)</h3>
+                        <p><strong>Owners:</strong> Student + Faculty</p>
+                        <p><strong>Frequency:</strong> Every April (5 times)</p>
+                        <p><strong>Type:</strong> 4-part mutual assessment</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detail Panels -->
+            <div id="detail-idp" class="detail-panel">
+                <h3>📋 Individual Development Plan - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Central hub for student's entire doctoral journey</p>
+                
+                <h4>Sections Include:</h4>
+                <ul>
+                    <li><strong>Student Profile:</strong> Name, NUID, email, start date, research area, department, primary/co-advisor</li>
+                    <li><strong>Research Approach:</strong> STEM/Humanities/Practice-Based (self-identified, not forced by department)</li>
+                    <li><strong>Year-by-Year Goals:</strong> Fall/Spring/Summer goals for Years 1-5</li>
+                    <li><strong>Milestone Planning:</strong> Target dates for qualifying exam, proposal defense, dissertation defense</li>
+                    <li><strong>Skills Development:</strong> Technical, methodological, professional skills to acquire</li>
+                    <li><strong>Career Planning:</strong> Evolving thoughts from exploration (Year 1-2) to specific plans (Year 4-5)</li>
+                    <li><strong>Documentation Archive:</strong> CV/resume history uploaded via check-ins</li>
+                </ul>
+                
+                <h4>Integration Points:</h4>
+                <ul>
+                    <li>Profile data auto-populates Compact student section</li>
+                    <li>Goals displayed in Check-ins for reflection on progress</li>
+                    <li>Milestone plans referenced in Annual Review</li>
+                    <li>Research approach determines discipline-specific question adaptations</li>
+                </ul>
+                
+                <h4>User Experience:</h4>
+                <p>Students see IDP Dashboard showing: current goals, upcoming milestones, check-in history, annual review history, CV/resume archive. One-stop view of entire journey.</p>
+            </div>
+            
+            <div id="detail-labmanual" class="detail-panel">
+                <h3>🔬 Lab Manual - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Faculty document expectations once, share with all advisees</p>
+                
+                <h4>Three Discipline-Specific Templates:</h4>
+                <ul>
+                    <li><strong>STEM/Computational:</strong> Code management, data management, computational resources, reproducibility, lab meetings, publications</li>
+                    <li><strong>Humanities/Social Science:</strong> Reading practices, qualitative methods, IRB, archival research, writing practices, publication culture</li>
+                    <li><strong>Practice-Based/Creative:</strong> Practice as research, critique culture, studio practices, exhibition/performance, documentation, materials</li>
+                </ul>
+                
+                <h4>Common Sections All Templates:</h4>
+                <ul>
+                    <li>Welcome & research philosophy</li>
+                    <li>Communication preferences & availability</li>
+                    <li>Lab culture & values</li>
+                    <li>Collaboration & authorship expectations</li>
+                    <li>Resources available (space, equipment, funding)</li>
+                    <li>Professional development support</li>
+                    <li>Diversity, equity, inclusion commitments</li>
+                </ul>
+                
+                <h4>Benefits:</h4>
+                <ul>
+                    <li><strong>For Faculty:</strong> Write once, share with all advisees. Updates easier (modify once per year).</li>
+                    <li><strong>For Students:</strong> Clear expectations before even joining lab. Reference throughout relationship.</li>
+                    <li><strong>For Program:</strong> Transparency. New students see what they're joining.</li>
+                </ul>
+            </div>
+            
+            <div id="detail-compact" class="detail-panel">
+                <h3>🤝 Advising Compact - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Negotiated agreement between student and advisor establishing working relationship</p>
+                
+                <h4>Two-Part Structure:</h4>
+                <p><strong>Part 1: Student Section</strong> (pre-populated from IDP)</p>
+                <ul>
+                    <li>Working style & preferences</li>
+                    <li>Career goals & aspirations</li>
+                    <li>Support needs & concerns</li>
+                    <li>Communication preferences</li>
+                </ul>
+                
+                <p><strong>Part 2: Advisor Section</strong> (references Lab Manual)</p>
+                <ul>
+                    <li>Mentoring philosophy & approach</li>
+                    <li>Availability & typical response times</li>
+                    <li>Resources provided</li>
+                    <li>Expectations & non-negotiables</li>
+                </ul>
+                
+                <h4>Mutual Agreements Section:</h4>
+                <ul>
+                    <li><strong>Meeting Schedule:</strong> Frequency (weekly/bi-weekly/monthly), duration, format (in-person/virtual), standing time if applicable</li>
+                    <li><strong>Response Times:</strong> Email (24hr/48hr/week), document feedback (by type and length), urgent matters protocol</li>
+                    <li><strong>Communication Channels:</strong> Email for X, Slack for Y, in-person for Z</li>
+                    <li><strong>Milestone Preparation:</strong> When to start preparing for each milestone, readiness criteria, support needed</li>
+                    <li><strong>RA/TA Expectations:</strong> If funded, hours per week, balance with dissertation</li>
+                    <li><strong>Professional Development:</strong> Conference attendance, publication goals, teaching opportunities</li>
+                </ul>
+                
+                <h4>Living Document:</h4>
+                <p>Reviewed and updated annually during Annual Review process. Both parties discuss what's working, what needs adjustment. Changes signed off by both.</p>
+            </div>
+            
+            <div id="detail-summercheck" class="detail-panel">
+                <h3>☀️ Summer Check-in - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Developmental reflection, not administrative reporting</p>
+                
+                <h4>Question Structure (15-20 minutes):</h4>
+                
+                <p><strong>Section 1: Research Development</strong></p>
+                <ul>
+                    <li>"How has your research question/focus evolved since [last check-in]?"</li>
+                    <li>"What new connections or insights have emerged?"</li>
+                    <li>"What's one thing you understand differently now?"</li>
+                    <li>Discipline-specific prompts (all visible, student chooses relevant ones)</li>
+                </ul>
+                
+                <p><strong>Section 2: Integration Questions</strong></p>
+                <ul>
+                    <li>[STEM]: "How are theoretical concepts shaping implementation?"</li>
+                    <li>[Humanities]: "How is fieldwork/archival work challenging your framework?"</li>
+                    <li>[Practice]: "How is your creative practice generating new knowledge?"</li>
+                </ul>
+                
+                <p><strong>Section 3: Developmental Thinking</strong></p>
+                <ul>
+                    <li>"What skills are you developing that you didn't anticipate?"</li>
+                    <li>"What challenges are you working through?"</li>
+                    <li>"Where do you feel stuck? (It's okay - this is part of the process)"</li>
+                </ul>
+                
+                <p><strong>Section 4: Career Orientation (scaffolded by year)</strong></p>
+                <ul>
+                    <li>Year 1-2: "What work environments are you curious about?"</li>
+                    <li>Year 3-4: "How does your research connect to potential careers?"</li>
+                    <li>Year 4-5: "What specific next steps post-graduation?"</li>
+                </ul>
+                
+                <p><strong>Section 5: Support & Resources</strong></p>
+                <ul>
+                    <li>"What support would be most helpful right now?"</li>
+                    <li>"Are you meeting with advisors as planned in compact?"</li>
+                    <li>"What resources do you need access to?"</li>
+                </ul>
+                
+                <p><strong>Section 6: CV/Resume Upload (REQUIRED)</strong></p>
+                <ul>
+                    <li>Upload current CV or Resume</li>
+                    <li>Max 52MB file size</li>
+                    <li>Stored in personal archive</li>
+                </ul>
+                
+                <h4>Framing:</h4>
+                <p>"This check-in is for YOU, not just for the record. Take time to reflect on your growth as a researcher, artist, and scholar."</p>
+            </div>
+            
+            <div id="detail-fallcheck" class="detail-panel">
+                <h3>🍂 Fall Check-in - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Same as Summer check-in + forward planning for spring</p>
+                
+                <h4>Same Structure as Summer, Plus:</h4>
+                <ul>
+                    <li><strong>Review of Last Annual Review:</strong> "What feedback did you receive in April? What progress have you made on that feedback?"</li>
+                    <li><strong>Spring Planning:</strong> "Looking ahead to spring semester, what needs to happen?" (courses, milestones, research activities)</li>
+                    <li><strong>CV/Resume:</strong> Optional upload (vs. required in summer)</li>
+                </ul>
+                
+                <p>All other sections identical to Summer check-in: research development, integration questions, developmental thinking, career orientation, support needs.</p>
+            </div>
+            
+            <div id="detail-annual" class="detail-panel">
+                <h3>📊 Annual Review (360°) - Detailed Specifications</h3>
+                <p><strong>Function:</strong> Comprehensive mutual assessment generating discussion guide</p>
+                
+                <h4>Four Components:</h4>
+                
+                <p><strong>Part 1: Student Self-Assessment</strong></p>
+                <ul>
+                    <li>Research progress toward milestones</li>
+                    <li>Skills developed</li>
+                    <li>Publications, presentations, creative works</li>
+                    <li>Challenges encountered and how addressed</li>
+                    <li>Growth areas</li>
+                    <li>Career planning progress</li>
+                    <li>Goals for next year</li>
+                </ul>
+                
+                <p><strong>Part 2: Faculty Assessment of Student</strong></p>
+                <ul>
+                    <li>Research progress assessment</li>
+                    <li>Skills development observed</li>
+                    <li>Areas of strength</li>
+                    <li>Areas for growth</li>
+                    <li>Recommendations for student</li>
+                    <li><strong>CONFIDENTIAL SECTION (Academic Director only):</strong>
+                        <ul>
+                            <li>Probation consideration (yes/no + rationale)</li>
+                            <li>Dismissal consideration (yes/no + rationale)</li>
+                            <li>Serious concerns requiring intervention</li>
+                            <li>Confidential notes for Academic Director</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <p><strong>Part 3: Student Feedback on Advising (NEW - makes it 360°)</strong></p>
+                <ul>
+                    <li>Communication and accessibility</li>
+                    <li>Quality of guidance received</li>
+                    <li>What's working well in the relationship</li>
+                    <li>What could improve</li>
+                    <li>Requests for changes or adjustments</li>
+                </ul>
+                
+                <p><strong>Part 4: Faculty Self-Reflection (NEW - makes it 360°)</strong></p>
+                <ul>
+                    <li>What's working well in this advising relationship</li>
+                    <li>Areas where I could support student better</li>
+                    <li>Commitments I'm making for the year ahead</li>
+                    <li>Resources or support I need to be a better advisor</li>
+                </ul>
+                
+                <h4>Process Flow:</h4>
+                <ol>
+                    <li>Both student and faculty complete their parts independently</li>
+                    <li>Academic Director reviews confidential flags (probation/dismissal)</li>
+                    <li>System generates Discussion Guide highlighting:
+                        <ul>
+                            <li>Areas of alignment</li>
+                            <li>Areas of disconnect</li>
+                            <li>Action items for both parties</li>
+                            <li>Compact updates needed</li>
+                        </ul>
+                    </li>
+                    <li>Student and advisor meet to discuss using guide</li>
+                    <li>Both sign off on discussion outcomes</li>
+                    <li>Compact updated if needed</li>
+                    <li>Academic Director receives final signed review</li>
+                </ol>
+                
+                <h4>Cultural Shift:</h4>
+                <p>This is a move from one-directional evaluation (faculty assess student) to developmental conversation (mutual feedback for mutual growth). Faculty self-reflection demonstrates openness to improving mentoring.</p>
+            </div>
+            
+            <h2>Data Integration Flow</h2>
+            <div class="diagram-container">
+                <div class="data-flow">
+                    <h4>IDP → Compact</h4>
+                    <p>Student profile, research approach, goals, career aspirations auto-populate Compact student section</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>Lab Manual → Compact</h4>
+                    <p>Faculty expectations, resources, communication norms referenced when creating Compact advisor section</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>IDP → Check-ins</h4>
+                    <p>Current goals displayed in check-ins for reflection on progress. Check-ins ask: "Your IDP says your goal is X. How's that going?"</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>Compact → Check-ins</h4>
+                    <p>Agreed-upon meeting schedule checked: "Your compact says you meet weekly. Did this happen consistently?"</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>Check-ins → Annual Review</h4>
+                    <p>Check-in responses summarized in Annual Review: "In August you said X. In December you said Y. Progress?"</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>Annual Review → Next Annual Review</h4>
+                    <p>Previous year's feedback referenced: "Last year's review identified Z as growth area. Progress this year?"</p>
+                </div>
+                
+                <div class="data-flow">
+                    <h4>Annual Review → Compact Update</h4>
+                    <p>If review identifies needed changes (meeting frequency, communication, etc.), Compact is updated and re-signed</p>
+                </div>
+            </div>
+            
+            <h2>User Roles & Access</h2>
+            <div class="user-roles">
+                <div class="role-card">
+                    <div class="role-icon">🎓</div>
+                    <h3>Student</h3>
+                    <p><strong>Can Access:</strong></p>
+                    <ul style="text-align: left; margin-top: 10px;">
+                        <li>Own IDP</li>
+                        <li>Own Compact</li>
+                        <li>Own Check-ins</li>
+                        <li>Own Annual Review</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Permissions:</strong> Create, edit, view own data only</p>
+                </div>
+                
+                <div class="role-card">
+                    <div class="role-icon">👨‍🏫</div>
+                    <h3>Faculty</h3>
+                    <p><strong>Can Access:</strong></p>
+                    <ul style="text-align: left; margin-top: 10px;">
+                        <li>Own Lab Manual</li>
+                        <li>Advisees' Compacts</li>
+                        <li>Advisees' Check-ins</li>
+                        <li>Advisees' Annual Reviews</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Permissions:</strong> View/edit own advisees only</p>
+                </div>
+                
+                <div class="role-card">
+                    <div class="role-icon">👤</div>
+                    <h3>Academic Director</h3>
+                    <p><strong>Can Access:</strong></p>
+                    <ul style="text-align: left; margin-top: 10px;">
+                        <li>All submissions</li>
+                        <li>Confidential faculty flags</li>
+                        <li>Completion tracking</li>
+                        <li>Data exports</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Permissions:</strong> Full visibility, monitoring, export</p>
+                </div>
+            </div>
+            
+            <h2>5-Year User Journey Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-year">
+                    <h4>Year 1 (Sept 2025 - Aug 2026)</h4>
+                    <div class="timeline-events">
+                        <span class="event required">Create IDP (Sept)</span>
+                        <span class="event">Faculty shares Lab Manual (Sept)</span>
+                        <span class="event required">Create Compact (Oct)</span>
+                        <span class="event required">Fall Check-in (Dec)</span>
+                        <span class="event required">Annual Review (Apr)</span>
+                        <span class="event required">Summer Check-in + CV (Aug)</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-year">
+                    <h4>Year 2 (Sept 2026 - Aug 2027)</h4>
+                    <div class="timeline-events">
+                        <span class="event required">Fall Check-in (Dec)</span>
+                        <span class="event required">Annual Review (Apr)</span>
+                        <span class="event">Review/Update Compact (Apr)</span>
+                        <span class="event required">Summer Check-in + CV (Aug)</span>
+                        <span class="event">Qualifying Exam (Spring/Fall)</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-year">
+                    <h4>Year 3 (Sept 2027 - Aug 2028)</h4>
+                    <div class="timeline-events">
+                        <span class="event required">Fall Check-in (Dec)</span>
+                        <span class="event required">Annual Review (Apr)</span>
+                        <span class="event required">Summer Check-in + CV (Aug)</span>
+                        <span class="event">Proposal Defense (Fall/Spring)</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-year">
+                    <h4>Year 4 (Sept 2028 - Aug 2029)</h4>
+                    <div class="timeline-events">
+                        <span class="event required">Fall Check-in (Dec)</span>
+                        <span class="event required">Annual Review (Apr)</span>
+                        <span class="event required">Summer Check-in + CV (Aug)</span>
+                        <span class="event">Dissertation research/writing</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-year">
+                    <h4>Year 5 (Sept 2029 - Aug 2030)</h4>
+                    <div class="timeline-events">
+                        <span class="event required">Fall Check-in (Dec)</span>
+                        <span class="event required">Annual Review (Apr)</span>
+                        <span class="event required">Summer Check-in + CV (Aug)</span>
+                        <span class="event required">Dissertation Defense</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 40px;">
+                <h3>Summary Statistics</h3>
+                <ul>
+                    <li><strong>6 components</strong> in integrated system</li>
+                    <li><strong>20+ interactions</strong> between student and system over 5 years</li>
+                    <li><strong>3 user roles</strong> with appropriate permissions</li>
+                    <li><strong>Automatic data sharing</strong> between all components</li>
+                    <li><strong>134 users</strong> (77 students + 57 faculty) supported</li>
+                    <li><strong>Zero additional costs</strong> using existing CampusPress infrastructure</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Interactive component details
+        document.querySelectorAll('.component').forEach(component => {
+            component.addEventListener('click', function() {
+                // Remove active from all
+                document.querySelectorAll('.component').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.detail-panel').forEach(d => d.classList.remove('active'));
+                
+                // Add active to clicked
+                this.classList.add('active');
+                const detailId = 'detail-' + this.dataset.component;
+                const detailPanel = document.getElementById(detailId);
+                if (detailPanel) {
+                    detailPanel.classList.add('active');
+                    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

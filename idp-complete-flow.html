@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Mockup - CAMD PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-notice {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .mockup-notice h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .mockup-notice p {
+            color: #856404;
+            margin: 5px 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #000;
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            padding: 20px 30px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            background: #000;
+            height: 100%;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.75em;
+            color: #999;
+        }
+        
+        .step.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .step.complete {
+            color: #28a745;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .page-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .page-description {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .required {
+            color: #dc3545;
+        }
+        
+        .field-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .radio-group,
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        .radio-option,
+        .checkbox-option {
+            margin-bottom: 10px;
+        }
+        
+        .radio-option input,
+        .checkbox-option input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .radio-option label,
+        .checkbox-option label {
+            display: inline;
+            font-weight: normal;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #000;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #333;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .page-selector {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .page-selector select {
+            width: auto;
+            min-width: 300px;
+            padding: 10px;
+        }
+        
+        .conditional-field {
+            border-left: 3px solid #0066cc;
+            padding-left: 20px;
+            margin-top: 15px;
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .auto-populated {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .helper-text {
+            font-size: 0.85em;
+            color: #28a745;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-content {
+                padding: 20px;
+            }
+            
+            .step-indicator {
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-notice">
+        <h2>⚠️ EARLY DRAFT MOCKUP - NOT FINAL DESIGN</h2>
+        <p><strong>This is a static demonstration showing form structure and flow.</strong></p>
+        <p>The actual WordPress/Formidable implementation will include:</p>
+        <p>✓ Auto-save as you type • ✓ Better mobile responsiveness • ✓ Enhanced accessibility • ✓ Improved validation • ✓ Professional styling</p>
+        <p style="margin-top: 10px; font-size: 0.9em;"><em>Use the dropdown below to navigate between form pages</em></p>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Individual Development Plan (IDP)</h1>
+            <p>Track your goals, skills, research progress, and career planning across your doctoral journey</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 12%;"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Page 1 of 8 • Estimated time remaining: 15 minutes</span>
+            </div>
+            <div class="step-indicator">
+                <div class="step active" id="step1">Profile</div>
+                <div class="step" id="step2">Year 1</div>
+                <div class="step" id="step3">Year 2-5</div>
+                <div class="step" id="step4">Milestones</div>
+                <div class="step" id="step5">Skills</div>
+                <div class="step" id="step6">Career</div>
+                <div class="step" id="step7">Archive</div>
+                <div class="step" id="step8">Review</div>
+            </div>
+        </div>
+        
+        <div class="form-content">
+            <div class="page-selector">
+                <label for="pageSelect" style="display: inline; margin-right: 10px;"><strong>Navigate to page:</strong></label>
+                <select id="pageSelect" onchange="showPage(this.value)">
+                    <option value="1">Page 1: Student Profile</option>
+                    <option value="2">Page 2: Year 1 Goals</option>
+                    <option value="3">Page 3: Year 2-5 Goals</option>
+                    <option value="4">Page 4: Milestone Planning</option>
+                    <option value="5">Page 5: Skills Development</option>
+                    <option value="6">Page 6: Career Planning</option>
+                    <option value="7">Page 7: Documentation Archive</option>
+                    <option value="8">Page 8: Review & Submit</option>
+                </select>
+            </div>
+            
+            <!-- Page 1: Student Profile -->
+            <div id="page1" class="page">
+                <h2 class="page-title">Student Profile</h2>
+                <p class="page-description">Basic information about you and your program. This information will auto-populate other forms you complete.</p>
+                
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" placeholder="First Last" value="Jane Smith">
+                </div>
+                
+                <div class="form-group">
+                    <label>Northeastern University ID (NUID) <span class="required">*</span></label>
+                    <input type="text" placeholder="##########" value="0012345678" maxlength="10">
+                    <small class="field-description">Must be exactly 10 digits</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Northeastern Email <span class="required">*</span></label>
+                    <input type="email" placeholder="you@northeastern.edu" value="j.smith@northeastern.edu">
+                </div>
+                
+                <div class="form-group">
+                    <label>Start Semester <span class="required">*</span></label>
+                    <select>
+                        <option value="">Select semester...</option>
+                        <option value="Fall 2025" selected>Fall 2025</option>
+                        <option value="Spring 2026">Spring 2026</option>
+                        <option value="Fall 2026">Fall 2026</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Program Track <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="track" id="track1" value="regular" checked>
+                            <label for="track1">Regular (5 years)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="track" id="track2" value="advanced">
+                            <label for="track2">Advanced Entry (4 years)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Primary Department (Administrative) <span class="required">*</span></label>
+                    <select>
+                        <option value="">Select department...</option>
+                        <option value="art">Art + Design</option>
+                        <option value="arch">Architecture</option>
+                        <option value="comm" selected>Communication Studies</option>
+                        <option value="jour">Journalism</option>
+                        <option value="music">Music</option>
+                        <option value="theatre">Theatre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Research Approach (Methodological) <span class="required">*</span></label>
+                    <p class="field-description">Select the approach that best describes your research methodology. This can be different from your administrative department.</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="approach" id="approach1" value="stem">
+                            <label for="approach1">STEM/Computational</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="approach" id="approach2" value="humanities" checked>
+                            <label for="approach2">Humanities/Social Science</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="approach" id="approach3" value="practice">
+                            <label for="approach3">Practice-Based/Creative</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="approach" id="approach4" value="multiple">
+                            <label for="approach4">Multiple approaches (specify below)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Research Area <span class="required">*</span></label>
+                    <select>
+                        <option value="">Select research area...</option>
+                        <option value="games">Games + XR</option>
+                        <option value="dataviz">Data Visualization</option>
+                        <option value="hci">HCI / Interaction Design</option>
+                        <option value="media" selected>Media Studies</option>
+                        <option value="performance">Performance Studies</option>
+                        <option value="social">Design for Social Change</option>
+                        <option value="developing">Still developing</option>
+                        <option value="other">Other (specify below)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Primary Advisor Name <span class="required">*</span></label>
+                    <input type="text" placeholder="Advisor name" value="Dr. Maria Rodriguez">
+                </div>
+                
+                <div class="form-group">
+                    <label>Primary Advisor Email <span class="required">*</span></label>
+                    <input type="email" placeholder="advisor@northeastern.edu" value="m.rodriguez@northeastern.edu">
+                </div>
+                
+                <div class="form-group">
+                    <label>Co-Advisor Name</label>
+                    <p class="field-description">Leave blank if you haven't selected a co-advisor yet (required by Year 2)</p>
+                    <input type="text" placeholder="Leave blank if not yet selected">
+                </div>
+            </div>
+            
+            <!-- Page 2: Year 1 Goals -->
+            <div id="page2" class="page" style="display: none;">
+                <h2 class="page-title">Year 1 Goals & Planning</h2>
+                <p class="page-description">For each semester, identify 3-5 specific goals for research, coursework, and professional development.</p>
+                
+                <div class="info-box">
+                    <strong>💡 Tip:</strong> Be specific! Instead of "make progress on research," try "complete literature review on X, identify 3 potential case studies, attend Y conference"
+                </div>
+                
+                <div class="form-group">
+                    <label>Fall Semester Goals <span class="required">*</span></label>
+                    <p class="field-description">What do you want to accomplish Fall 2025?</p>
+                    <textarea rows="6" placeholder="Example: Complete INPR 5100, identify potential qualifying exam fields, attend 2 department colloquia, start literature review on media representation in games...">- Complete INPR 5100 (Teaching Foundations)
+- Complete COMM 5210 (Media Theory)
+- Attend weekly Communication colloquium
+- Begin literature review on news media and social movements
+- Meet with advisor weekly to establish research direction
+- Connect with 3 potential committee members</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Spring Semester Goals <span class="required">*</span></label>
+                    <p class="field-description">What do you want to accomplish Spring 2026?</p>
+                    <textarea rows="6" placeholder="Your Spring 2026 goals...">- Complete COMM 6350 (Qualitative Methods)
+- Complete second required INPR course
+- Finalize qualifying exam fields with advisor
+- Submit conference proposal to ICA
+- Begin preparing for qualifying exam (reading lists)
+- Select co-advisor by end of semester</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Summer Goals <span class="required">*</span></label>
+                    <p class="field-description">What do you want to accomplish Summer 2026?</p>
+                    <textarea rows="6" placeholder="Your Summer 2026 goals...">- Intensive qualifying exam preparation
+- Complete reading lists for both exam fields
+- Draft potential exam questions and practice responses
+- Attend ICA conference (if proposal accepted)
+- Begin preliminary research for dissertation
+- Prepare for Year 2 coursework</textarea>
+                </div>
+            </div>
+            
+            <!-- Page 3: Year 2-5 Goals -->
+            <div id="page3" class="page" style="display: none;">
+                <h2 class="page-title">Year 2-5 Goals (Overview)</h2>
+                <p class="page-description">Provide initial thoughts for future years. You'll update these each year as you progress. It's okay if these are tentative right now.</p>
+                
+                <div class="info-box">
+                    <strong>📅 Note:</strong> These can be rough sketches. You'll refine them each year during your annual review.
+                </div>
+                
+                <div class="form-group">
+                    <label>Year 2 Focus (Fall 2026 - Summer 2027) <span class="required">*</span></label>
+                    <textarea rows="5" placeholder="Major milestones and goals for Year 2...">- Pass qualifying exam (Fall 2026 target)
+- Complete remaining coursework requirements
+- Develop dissertation proposal
+- Present at 2 conferences
+- Begin IRB process if needed for dissertation
+- TA for undergraduate course</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Year 3 Focus (Fall 2027 - Summer 2028)</label>
+                    <textarea rows="4" placeholder="Tentative plans for Year 3...">- Defend dissertation proposal (target: Spring 2028)
+- Begin data collection/fieldwork
+- Publish first journal article
+- Apply for dissertation research funding</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Year 4 Focus (Fall 2028 - Summer 2029)</label>
+                    <textarea rows="4" placeholder="Tentative plans for Year 4...">- Complete data collection
+- Begin dissertation writing
+- Present research at major conferences
+- Begin exploring job market</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Year 5 Focus (Fall 2029 - Summer 2030)</label>
+                    <textarea rows="4" placeholder="Tentative plans for Year 5...">- Complete dissertation writing
+- Defend dissertation (target: Spring 2030)
+- Apply for postdocs/faculty positions
+- Prepare for job market (teaching statements, research statements)</textarea>
+                </div>
+            </div>
+            
+            <!-- Page 4: Milestone Planning -->
+            <div id="page4" class="page" style="display: none;">
+                <h2 class="page-title">Program Milestones & Target Dates</h2>
+                <p class="page-description">Set target dates for major program milestones. These will be referenced in your Advising Compact and check-ins.</p>
+                
+                <div class="form-group">
+                    <label>Co-Advisor Selection Target <span class="required">*</span></label>
+                    <p class="field-description">Required by end of Year 2</p>
+                    <input type="date" value="2027-05-01">
+                </div>
+                
+                <div class="form-group">
+                    <label>Qualifying Exam Target Date <span class="required">*</span></label>
+                    <p class="field-description">Typically Spring Year 2 or Fall Year 3</p>
+                    <input type="date" value="2026-11-15">
+                </div>
+                
+                <div class="form-group">
+                    <label>Proposed Qualifying Exam Field 1</label>
+                    <input type="text" placeholder="e.g., Media Studies" value="Media Studies">
+                </div>
+                
+                <div class="form-group">
+                    <label>Proposed Qualifying Exam Field 2</label>
+                    <input type="text" placeholder="e.g., Social Movement Theory" value="Social Movement Theory">
+                </div>
+                
+                <div class="form-group">
+                    <label>Proposal Defense Target Date <span class="required">*</span></label>
+                    <p class="field-description">Typically end of Year 3 or Year 4</p>
+                    <input type="date" value="2028-04-15">
+                </div>
+                
+                <div class="form-group">
+                    <label>Dissertation Defense Target Date <span class="required">*</span></label>
+                    <p class="field-description">Typically Year 5</p>
+                    <input type="date" value="2030-04-30">
+                </div>
+            </div>
+            
+            <!-- Page 5: Skills Development -->
+            <div id="page5" class="page" style="display: none;">
+                <h2 class="page-title">Skills Development</h2>
+                <p class="page-description">Identify technical and professional skills you want to develop during your doctoral program.</p>
+                
+                <div class="form-group">
+                    <label>Technical Skills to Develop</label>
+                    <p class="field-description">Check all that apply</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill1">
+                            <label for="skill1">Programming/coding</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill2">
+                            <label for="skill2">Data analysis</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill3" checked>
+                            <label for="skill3">Qualitative methods</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill4">
+                            <label for="skill4">Design software</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill5" checked>
+                            <label for="skill5">Archival research</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill6">
+                            <label for="skill6">Video production</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="skill7">
+                            <label for="skill7">Other (specify below)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Professional Skills to Develop</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prof1" checked>
+                            <label for="prof1">Academic writing</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prof2" checked>
+                            <label for="prof2">Grant writing</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prof3" checked>
+                            <label for="prof3">Teaching</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prof4" checked>
+                            <label for="prof4">Presenting</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prof5">
+                            <label for="prof5">Project management</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Skill Development Plan <span class="required">*</span></label>
+                    <p class="field-description">How will you develop these skills? Through coursework, workshops, self-directed learning, collaboration?</p>
+                    <textarea rows="6" placeholder="Your development plan...">- Qualitative methods: COMM 6350 + independent study with advisor on interview techniques
+- Academic writing: Writing Center consultations + peer writing group
+- Grant writing: NCFDD workshops + practice proposals with advisor feedback
+- Teaching: INPR 5100 course + TA experience Year 3
+- Presenting: Practice at colloquia + conferences starting Year 2
+- Archival research: Summer research trip + consultation with university archivist</textarea>
+                </div>
+            </div>
+            
+            <!-- Page 6: Career Planning -->
+            <div id="page6" class="page" style="display: none;">
+                <h2 class="page-title">Career Planning</h2>
+                <p class="page-description">These questions will evolve as you progress. Year 1-2: exploration. Year 3-5: concrete planning.</p>
+                
+                <div class="info-box">
+                    <strong>💼 Note:</strong> It's completely normal to be exploring options in Year 1. Your thinking will develop over time.
+                </div>
+                
+                <div class="form-group">
+                    <label>Career Interests <span class="required">*</span></label>
+                    <p class="field-description">What types of careers interest you? (check all that apply)</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career1" checked>
+                            <label for="career1">Academic (tenure-track faculty)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career2">
+                            <label for="career2">Research (non-academic, think tanks, R&D)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career3" checked>
+                            <label for="career3">Nonprofit/Social sector</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career4">
+                            <label for="career4">Industry (corporate, startups)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career5">
+                            <label for="career5">Government</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="career6" checked>
+                            <label for="career6">Still exploring</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Career Exploration (Year 1-2) <span class="required">*</span></label>
+                    <p class="field-description">What are you curious about regarding careers?</p>
+                    <textarea rows="6" placeholder="What work environments interest you? What kinds of projects or problems would you like to work on?">I'm most interested in academic careers, but also curious about research roles in nonprofit organizations focused on media and social justice. I'd like to understand what the day-to-day work looks like in both environments.
+
+I'm also interested in learning more about:
+- How people balance research with teaching in academic roles
+- What opportunities exist for public scholarship and community engagement
+- Alternative academic careers (research centers, policy organizations)
+- How to make research accessible to non-academic audiences</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Professional Network</label>
+                    <p class="field-description">Who is in your professional network? Who would you like to connect with?</p>
+                    <textarea rows="5" placeholder="Current connections and people you'd like to meet...">Current network:
+- Former undergrad research advisor (Prof. Chen, sociology)
+- 3 colleagues from previous internship at Media Justice Alliance
+- Classmates from MA program
+
+Would like to connect with:
+- Faculty working on media and social movements
+- Scholars doing community-engaged research
+- People working in nonprofit research/policy roles</textarea>
+                </div>
+            </div>
+            
+            <!-- Page 7: Documentation Archive -->
+            <div id="page7" class="page" style="display: none;">
+                <h2 class="page-title">Documentation Archive</h2>
+                <p class="page-description">Your CV/Resume will be uploaded through check-ins (required in summer, optional in fall). This section tracks your archive.</p>
+                
+                <div class="info-box">
+                    <strong>📄 How this works:</strong> When you complete your summer check-ins, you'll be required to upload your current CV or resume. Those files will appear here for easy reference.
+                </div>
+                
+                <div class="form-group">
+                    <label>CV/Resume Archive</label>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 4px; border: 1px solid #dee2e6;">
+                        <p style="color: #666; margin-bottom: 15px;"><em>Your uploaded CVs will appear here:</em></p>
+                        
+                        <div style="padding: 15px; background: white; border-radius: 4px; margin-bottom: 10px; border: 1px solid #dee2e6;">
+                            <strong>📄 CV_JSmith_Aug2026.pdf</strong><br>
+                            <small style="color: #666;">Uploaded: August 15, 2026 (Summer Check-in Year 1)</small><br>
+                            <small style="color: #0066cc; cursor: pointer;">↓ Download</small>
+                        </div>
+                        
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 4px; border: 1px dashed #dee2e6;">
+                            <small style="color: #999;">No files uploaded yet. Complete your first summer check-in to add your CV.</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Most Recent Version</label>
+                    <p class="field-description">The system will always display your most recently uploaded CV/resume here for quick reference.</p>
+                    <div style="background: #d4edda; padding: 15px; border-radius: 4px; border: 1px solid #c3e6cb;">
+                        <strong style="color: #155724;">✓ Current CV: CV_JSmith_Aug2026.pdf</strong><br>
+                        <small style="color: #155724;">Last updated: August 15, 2026</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 8: Review & Submit -->
+            <div id="page8" class="page" style="display: none;">
+                <h2 class="page-title">Review & Confirm</h2>
+                <p class="page-description">Review your IDP before submitting. You can update it anytime by returning to this form.</p>
+                
+                <div class="info-box">
+                    <strong>📋 Summary of Your IDP:</strong>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 4px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.2em;">Profile</h3>
+                    <p><strong>Name:</strong> Jane Smith</p>
+                    <p><strong>NUID:</strong> 0012345678</p>
+                    <p><strong>Email:</strong> j.smith@northeastern.edu</p>
+                    <p><strong>Start:</strong> Fall 2025 (Regular track)</p>
+                    <p><strong>Department:</strong> Communication Studies</p>
+                    <p><strong>Research Approach:</strong> Humanities/Social Science</p>
+                    <p><strong>Research Area:</strong> Media Studies</p>
+                    <p><strong>Primary Advisor:</strong> Dr. Maria Rodriguez</p>
+                    
+                    <h3 style="margin: 20px 0 15px 0; font-size: 1.2em;">Key Milestones</h3>
+                    <p><strong>Qualifying Exam:</strong> November 15, 2026</p>
+                    <p><strong>Proposal Defense:</strong> April 15, 2028</p>
+                    <p><strong>Dissertation Defense:</strong> April 30, 2030</p>
+                    
+                    <h3 style="margin: 20px 0 15px 0; font-size: 1.2em;">Goals Documented</h3>
+                    <p>✓ Year 1 goals (Fall/Spring/Summer)</p>
+                    <p>✓ Year 2-5 overview goals</p>
+                    <p>✓ Skills development plan</p>
+                    <p>✓ Career exploration notes</p>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="confirm" checked>
+                        <label for="confirm"><strong>I have reviewed my IDP and it accurately reflects my goals and plans <span class="required">*</span></strong></label>
+                    </div>
+                </div>
+                
+                <div style="background: #e7f3ff; padding: 20px; border-radius: 4px; border-left: 4px solid #0066cc; margin-top: 30px;">
+                    <p style="margin-bottom: 10px;"><strong>What happens next?</strong></p>
+                    <p style="font-size: 0.95em; color: #333;">• Your IDP is saved automatically as you work</p>
+                    <p style="font-size: 0.95em; color: #333;">• You can update it anytime by returning to this form</p>
+                    <p style="font-size: 0.95em; color: #333;">• This information will auto-populate your Advising Compact</p>
+                    <p style="font-size: 0.95em; color: #333;">• You'll reference your IDP during check-ins and annual reviews</p>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="previousPage()" id="prevBtn">← Previous</button>
+                <button type="button" class="btn-primary" onclick="nextPage()" id="nextBtn">Next →</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPage = 1;
+        const totalPages = 8;
+        
+        function showPage(pageNum) {
+            currentPage = parseInt(pageNum);
+            
+            // Hide all pages
+            for (let i = 1; i <= totalPages; i++) {
+                document.getElementById('page' + i).style.display = 'none';
+                document.getElementById('step' + i).classList.remove('active');
+                if (i < currentPage) {
+                    document.getElementById('step' + i).classList.add('complete');
+                } else {
+                    document.getElementById('step' + i).classList.remove('complete');
+                }
+            }
+            
+            // Show current page
+            document.getElementById('page' + currentPage).style.display = 'block';
+            document.getElementById('step' + currentPage).classList.add('active');
+            
+            // Update progress bar
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update progress text
+            const minutesRemaining = (totalPages - currentPage) * 2;
+            document.getElementById('progressText').textContent = 
+                `Page ${currentPage} of ${totalPages} • Estimated time remaining: ${minutesRemaining} minutes`;
+            
+            // Update buttons
+            document.getElementById('prevBtn').style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentPage === totalPages ? 'Save IDP' : 'Next →';
+            
+            // Update select
+            document.getElementById('pageSelect').value = currentPage;
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            } else {
+                alert('✓ Your IDP has been saved!\n\nYou can update it anytime by returning to this form.\n\nNext step: Complete your Advising Compact with your advisor.');
+            }
+        }
+        
+        function previousPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+        
+        // Initialize
+        showPage(1);
+    </script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Check-in Mockup - CAMD PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-notice {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mockup-notice h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #20B2AA 0%, #5F9EA0 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .intro-box {
+            background: #e0f7fa;
+            border-left: 4px solid #20B2AA;
+            padding: 20px;
+            margin: 30px 40px;
+            border-radius: 4px;
+        }
+        
+        .intro-box h3 {
+            margin-bottom: 10px;
+            color: #00695c;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 30px -40px;
+            border-left: 5px solid #20B2AA;
+        }
+        
+        .section-header h3 {
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+        
+        .field-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            line-height: 1.6;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #20B2AA;
+            box-shadow: 0 0 0 3px rgba(32,178,170,0.1);
+        }
+        
+        .discipline-prompts {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .discipline-prompts h4 {
+            margin-bottom: 15px;
+            color: #495057;
+        }
+        
+        .prompt-box {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #6c757d;
+            border-radius: 4px;
+        }
+        
+        .prompt-box strong {
+            color: #495057;
+        }
+        
+        .file-upload {
+            border: 2px dashed #20B2AA;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            background: #e0f7fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            background: #b2ebf2;
+            border-color: #00796b;
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .required-badge {
+            display: inline-block;
+            background: #dc3545;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            padding: 15px 40px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .progress-bar {
+            background: #dee2e6;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: #20B2AA;
+            height: 100%;
+            width: 45%;
+        }
+        
+        .progress-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #20B2AA;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #17a2a2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(32,178,170,0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-notice">
+        <h2>⚠️ EARLY DRAFT MOCKUP - NOT FINAL DESIGN</h2>
+        <p><strong>This demonstrates the Summer Check-in structure and developmental focus.</strong></p>
+        <p>Final WordPress/Formidable version will include enhanced features and professional styling.</p>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>☀️ Summer Check-in</h1>
+            <p>Reflect on your research journey • August 2026</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="progress-text">45% complete • About 10 minutes remaining</div>
+        </div>
+        
+        <div class="intro-box">
+            <h3>This check-in is for YOU, not just for the record</h3>
+            <p style="font-size: 0.95em; line-height: 1.6;">Take 15-20 minutes to honestly reflect on your growth as a researcher, artist, and scholar. Your reflections help your advisors support you better and help you track your own development over time.</p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: #00695c;"><strong>There are no wrong answers.</strong> This is developmental reflection, not performance evaluation.</p>
+        </div>
+        
+        <div class="form-content">
+            <div class="section-header">
+                <h3>Research Development</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>How has your research question or focus evolved since your last check-in?</label>
+                <p class="field-description">What did you start thinking about in December? How has that shifted or developed?</p>
+                <textarea rows="5" placeholder="Reflect on how your research has developed...">My initial focus on news media and social movements has become more specific. After reading more deeply into framing theory and social media activism, I'm now interested in how movement participants use different platforms to frame issues differently for different audiences.
+
+The shift happened after analyzing Black Lives Matter social media during spring semester - I realized there's a fascinating tension between maintaining movement coherence and adapting messaging for platform-specific audiences.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What new connections or insights have emerged in your work?</label>
+                <textarea rows="5" placeholder="New ideas, unexpected connections, emerging questions...">I've started seeing connections between my media studies background and rhetorical theory that I wasn't expecting. Dr. Rodriguez suggested I read Burke and that's opened up new ways of thinking about how activists make strategic choices.
+
+Also connecting this to my earlier interest in community organizing - the theoretical work is helping me understand patterns I observed but couldn't articulate.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What's one thing you understand differently now than you did 4 months ago?</label>
+                <textarea rows="4" placeholder="Changed understanding, new perspective, revised thinking...">I used to think "framing" was just about word choice. Now I understand it's about entire systems of meaning-making that are deeply cultural and contextual. This has big implications for my dissertation.</textarea>
+            </div>
+            
+            <div class="section-header">
+                <h3>Methodological Reflection</h3>
+            </div>
+            
+            <div class="discipline-prompts">
+                <h4>💡 Answer the prompts below that are relevant to your work</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">You might answer all of them, just one, or none and create your own reflection below. Choose what helps you think through your research.</p>
+                
+                <div class="prompt-box">
+                    <strong>💻 If your work involves STEM/computational methods:</strong> How have your experiments, implementations, or technical approaches evolved?
+                </div>
+                
+                <div class="prompt-box">
+                    <strong>📚 If your work involves theoretical/critical frameworks:</strong> How has your engagement with theory, archives, or fieldwork shaped your thinking?
+                </div>
+                
+                <div class="prompt-box">
+                    <strong>🎨 If your work involves creative/practice-based methods:</strong> How has your creative practice generated new questions or directions?
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>📚 Theoretical/Critical Framework Reflection</label>
+                <p class="field-description">Optional - only if relevant to your work</p>
+                <textarea rows="5" placeholder="How has theory, archival work, or fieldwork shaped your thinking?">My engagement with framing theory (Entman, Benford & Snow) has given me a vocabulary for analyzing social media posts that I was lacking. I'm also starting to see how critical race theory intersects with framing - not all frames are equally available to all movements.
+
+Planning to explore Counterpublic theory more deeply this fall to understand alternative framing strategies.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>📝 Other aspects of your research</label>
+                <p class="field-description">Anything else developing in your work?</p>
+                <textarea rows="4" placeholder="Other developments, challenges, or insights...">I'm getting more comfortable with the idea that my research question will keep evolving - that's not a problem, it's how research actually works. Advisor helped me see this is normal.</textarea>
+            </div>
+            
+            <div class="section-header">
+                <h3>Developmental Thinking</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>What skills are you developing that you didn't anticipate needing?</label>
+                <textarea rows="5" placeholder="Unexpected skills, surprising learning...">I didn't expect to need so much skill in managing ambiguity and uncertainty. My undergrad and MA programs were more structured - in the PhD, I'm having to learn how to work without clear right answers, which is both exciting and uncomfortable.
+
+Also developing better "reading for research" skills vs. "reading for class" - learning to extract what I need rather than comprehensively understand everything.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What intellectual or creative challenges are you working through right now?</label>
+                <p class="field-description">It's okay to be stuck - this is part of the process</p>
+                <textarea rows="5" placeholder="Current challenges, areas where you're struggling...">Struggling to narrow my scope. I'm interested in SO many aspects of social media activism and I want to study all of it. Dr. Rodriguez keeps reminding me that a dissertation doesn't need to answer every question, just make one solid contribution.
+
+Finding this hard but working on it. Trying to identify what uniquely excites me vs. what's just generally interesting.</textarea>
+            </div>
+            
+            <div class="section-header">
+                <h3>Career Orientation</h3>
+            </div>
+            
+            <div class="info-box" style="background: #e7f3ff; border-left: 4px solid #0066cc; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                <strong>💼 Year 1 Focus:</strong> Exploration and curiosity - not making final decisions
+            </div>
+            
+            <div class="form-group">
+                <label>What types of work environments are you curious about?</label>
+                <p class="field-description">Year 1-2: Exploring options, not committing</p>
+                <textarea rows="5" placeholder="What interests you? What are you curious to learn more about?">I came in thinking "tenure-track faculty" was the only legitimate goal, but I'm realizing there are other interesting paths:
+
+- Research positions at organizations like Data & Society or Pew Research
+- Policy/advocacy roles where research informs social change
+- Hybrid roles (teaching + nonprofit work)
+
+Want to learn more about what the day-to-day actually looks like in different settings. Planning to do informational interviews with people in different career paths.</textarea>
+            </div>
+            
+            <div class="section-header">
+                <h3>Support & Resources</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>What support would be most helpful to you right now?</label>
+                <p class="field-description">People, tools, funding, time, guidance on specific topics?</p>
+                <textarea rows="5" placeholder="What would help you most?">- More guidance on narrowing my research question (working on this with advisor)
+- Introduction to scholars doing similar work
+- Training on qualitative coding software (NVivo or Atlas.ti)
+- Funding for conference travel (want to go to ICA if my proposal is accepted)</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Are you meeting with your advisor(s) as planned in your compact?</label>
+                <div class="radio-group" style="margin-top: 10px;">
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" name="meetings" id="meet1" checked>
+                        <label for="meet1" style="display: inline; font-weight: normal;">Yes, consistently</label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" name="meetings" id="meet2">
+                        <label for="meet2" style="display: inline; font-weight: normal;">Mostly, with occasional gaps</label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="radio" name="meetings" id="meet3">
+                        <label for="meet3" style="display: inline; font-weight: normal;">No, meetings are irregular</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="meetings" id="meet4">
+                        <label for="meet4" style="display: inline; font-weight: normal;">Compact needs updating</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-header">
+                <h3>Current CV/Resume <span class="required-badge">REQUIRED</span></h3>
+            </div>
+            
+            <div class="info-box" style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                <strong>📄 Required for Summer Check-in:</strong> Upload your current CV or resume. This tracks your professional development and is archived in your IDP.
+            </div>
+            
+            <div class="form-group">
+                <label>Upload Current CV or Resume <span class="required-badge">REQUIRED</span></label>
+                <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" accept=".pdf,.docx">
+                    <div style="font-size: 3em; margin-bottom: 10px;">📄</div>
+                    <p style="font-weight: 600; margin-bottom: 5px;">Click to upload or drag file here</p>
+                    <p style="font-size: 0.9em; color: #666;">PDF or DOCX • Max 52MB</p>
+                    <p style="font-size: 0.85em; color: #666; margin-top: 10px;"><em>Your CV will be archived in your IDP for reference</em></p>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" class="btn-secondary">Save Draft</button>
+                <button type="button" class="btn-primary">Submit Summer Check-in →</button>
+            </div>
+            
+            <div style="background: #e7f3ff; padding: 20px; border-radius: 6px; margin-top: 30px; border: 1px solid #b3d9ff;">
+                <p style="font-size: 0.95em; color: #004085;"><strong>What happens after you submit:</strong></p>
+                <p style="font-size: 0.9em; color: #004085; margin-top: 8px;">• Your responses are saved to your IDP dashboard</p>
+                <p style="font-size: 0.9em; color: #004085;">• Your primary advisor receives notification</p>
+                <p style="font-size: 0.9em; color: #004085;">• Your CV is archived for future reference</p>
+                <p style="font-size: 0.9em; color: #004085;">• You receive confirmation email</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                alert('✓ File selected: ' + fileName + '\n\nIn the real form, this will upload automatically.');
+            }
+        });
+    </script>
+</body>
+</html>
